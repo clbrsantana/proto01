@@ -1,6 +1,59 @@
-html,body {
-    width: 1024px;
+html, body {
     margin: 0;
     padding: 0;
 }
 
+* {
+    box-sizing: border-box;
+}
+
+div {
+    position: absolute;
+}
+
+.hidden {
+    display: none;
+}
+
+#navbar {
+    position:fixed;
+    z-index:10;
+}
+
+#menuItensBar * {
+    position: relative;
+}
+
+#menuItensBar {
+    top:        477px;
+    width:    11264px;
+    height:     220px;
+    background-color: rgb(249,247,245);
+    -webkit-transition: -webkit-transform .5s cubic-bezier(0.215, 0.610, 0.355, 1.000);;
+}
+
+
+#contentView {
+    top:         50px;
+    height:     697px;
+    width:     1024px;
+    overflow: hidden;
+}
+
+#backgroundAnimation {
+    height:477px;
+}
+
+#setaEsquerda, #setaDireita {
+    position: fixed;
+    top: 592px;
+    z-index:5;
+}
+
+#setaEsquerda {left: 23px;}
+#setaDireita {left: 983px;}
+
+.menuItem {
+    width: 1024px;
+    float:left;
+}

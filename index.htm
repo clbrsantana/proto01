@@ -5,7 +5,7 @@
     <head>
         <title>proto01</title>
 
-        <meta name="viewport" content="user-scalable=no, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale = 1, maximum-scale=1.0, user-scalable=no">
         <link rel="apple-touch-icon-precomposed" href="assets/icon/apple-touch-icon-144.png" sizes="144x144">
         <meta name="apple-mobile-web-app-capable" content="yes">
         
@@ -26,8 +26,75 @@
     
     <body>
         
+        <img id="ajudaScreen" src="assets/temp/ajuda.png" width=1024 class="hidden"></img>
         
-        <script src="script.js"></script>
+        <div id="navbar">
+            <img src="assets/temp/navbar.png" width=1024>
+            <button id="BTNback" class="">Voltar</button>
+            <button id="BTNinventoTitle" class="">Título</button>
+            <button id="BTNaudioControl">Volume</button>
+            <button id="BTNhelp">Ajuda</button>
+            <button id="BTNinfo">Info</button>
+        </div>
+        
+        <div id="contentView">
+            <img id="backgroundAnimation" src="assets/temp/ariete.png" width=1024></img>
+            <img src="assets/temp/seta-esquerda.png" id="setaEsquerda" width="17" >
+            <img src="assets/temp/seta-direita.png" id="setaDireita" width="17" >
+            <div id="menuItensBar">
+                <div class="menuItem"><img src="assets/temp/intro.png" width="675" style="left:240px;top: 68px;"></div>
+                <div class="menuItem"><img src="assets/temp/ariete_.png" id="ariete" width="496" style="left: 350px;top: -92px;-webkit-transform: translateZ(500px);"></div>
+                <div class="menuItem"><img src="assets/temp/torre.png" id="torre" width="532" style="left: 330px;top: 53px;"></div>
+                <div class="menuItem"><img src="assets/temp/garra.png" width="568.5" style="left: 323px;top: 49px;"></div>
+                <div class="menuItem"><img src="assets/temp/onagro.png" width="387" style="left: 332px;top: 54px;"></div>
+                <div class="menuItem"><img src="assets/temp/ballista.png" width="431.5" style="left: 330px;top: 56px;"></div>
+                <div class="menuItem"><img src="assets/temp/scorpio.png" width="387" style="left: 330px;top: 56px;"></div>
+                <div class="menuItem"><img src="assets/temp/trebuchet.png" width="514.5" style="left: 290px;top: 55px;"></div>
+                <div class="menuItem"><img src="assets/temp/fogo.png" width="544" style="left: 270px;top: 55px;"></div>
+                <div class="menuItem"><img src="assets/temp/bombarda.png" width="499" style="left: 280px;top: 59px;"></div>
+                <div class="menuItem"><img src="assets/temp/tanque.png" width="561" style="left: 270px;top: 56px;"></div>
+            </div>
+        </div>
+        
         <script src="scripts/quo.js"></script>
+        <script>
+            var itemCurrent = 0;
+            $$('#setaDireita').on('tap', function() {
+              console.log('lala');
+              if (itemCurrent != 10) {itemCurrent ++;};
+              $$('#menuItensBar').style('-webkit-transform', 'translateX(-' + itemCurrent*1024 + 'px)');  
+            });
+            $$('#setaEsquerda').on('tap', function() {
+              if (itemCurrent != 00) {itemCurrent --;};
+              $$('#menuItensBar').style('-webkit-transform', 'translateX(-' + itemCurrent*1024 + 'px)');  
+            });
+            
+            $$('#menuItensBar').swipeLeft(function() {
+              if (itemCurrent != 10) {itemCurrent ++;};
+              $$('#menuItensBar').style('-webkit-transform', 'translateX(-' + itemCurrent*1024 + 'px)');  
+            });
+            
+            $$('#menuItensBar').swipeRight(function() {
+              if (itemCurrent != 0) {itemCurrent --;};
+              $$('#menuItensBar').style('-webkit-transform', 'translateX(-' + itemCurrent*1024 + 'px)');  
+            });
+            
+            document.body.addEventListener('touchmove', function(event) {
+                event.preventDefault;
+            });
+            
+            $$('#menuItensBar').on('touchmove', function() {
+                return false;
+            });
+            
+            $$('#contentView').on('touchmove', function() {
+                return false;
+            });
+            
+            
+            
+            
+            
+        </script>
     </body>
 </html>
