@@ -44,7 +44,7 @@
             <img src="assets/menu/toque.png" id="tapToOpen" width="187.5" >
             
             <div id="menuItensBar">
-                <div class="menuItem"><img src="assets/menu/titleIntro.png"     width="618"     style="left: 295px;top: 65px;"></div>
+                <div class="menuItem" style="-webkit-transform: translateX(-1024px);"><img src="assets/menu/titleIntro.png"     width="618"     style="left: 295px;top: 65px;"></div>
                 <div class="menuItem"><img src="assets/menu/titleAriete.png"    width="489"     style="left: 360px;top: -96px;"></div>
                 <div class="menuItem"><img src="assets/menu/titleTorre.png"     width="509"     style="left: 315px;top: -253px;"></div>
                 <div class="menuItem"><img src="assets/menu/titleGarra.png"     width="545.5"   style="left: 315px;top: -299.5px;"></div>
@@ -60,48 +60,39 @@
         
         <script src="scripts/quo.js"></script>
         <script>
-            var itemCurrent = 0;
-            $$('#setaDireita').on('tap', function(event) {
-              console.log('lala');
-              if (itemCurrent != 10) {itemCurrent ++;};
-              $$('#menuItensBar').style('-webkit-transform', 'translateX(-' + itemCurrent*1024 + 'px)');  
-              event.stopPropagation();
-            }, false);
-            $$('#setaEsquerda').on('tap', function(event) {
-              if (itemCurrent != 00) {itemCurrent --;};
-              $$('#menuItensBar').style('-webkit-transform', 'translateX(-' + itemCurrent*1024 + 'px)');  
-              event.stopPropagation();
-            });
             
-            $$('#menuItensBar').swipeLeft(function() {
-              if (itemCurrent != 10) {itemCurrent ++;};
-              $$('#menuItensBar').style('-webkit-transform', 'translateX(-' + itemCurrent*1024 + 'px)');  
-            });
+            var appMenu = {
+                titlesArray: $$('.menuItem'),
+                currentTitle: 0,
+                menuBar: $$('#menuItensBar'),
+                
+            };
             
-            $$('#menuItensBar').swipeRight(function() {
-              if (itemCurrent != 0) {itemCurrent --;};
-              $$('#menuItensBar').style('-webkit-transform', 'translateX(-' + itemCurrent*1024 + 'px)');  
-              
-            });
-    
-            $$('#menuItensBar').on('touchmove', function(event) {
-                event.stopPropagation;
-            }, false);
+            appMenu.nextItem = function() { 
+                //Trazer próximo item da direita
+                console.log(appMenu.currentTitle);
+                if (appMenu.currentTitle != 10 ) {
+                    appMenu.titlesArray[appMenu.currentTitle].style.webkitTransform = 'translateX(-2048px)';
+                    appMenu.currentTitle ++;
+                    appMenu.titlesArray[appMenu.currentTitle].style.webkitTransform = 'translateX(-1024px)';
+                }
+                
+            },
             
-            $$('#contentView').on('touchmove', function(event) {
-                event.stopPropagation;
-            }, false);
+            appMenu.previousItem = function() { 
+                //Trazer item anterior da esquerda
+                console.log(appMenu.currentTitle);
+                if (appMenu.currentTitle != 0 ) {
+                    appMenu.titlesArray[appMenu.currentTitle].style.webkitTransform = 'translateX(0px)';
+                    appMenu.currentTitle --;
+                    appMenu.titlesArray[appMenu.currentTitle].style.webkitTransform = 'translateX(-1024px)';
+                }
+            }
             
-            $$('#contentView').on('tap', function() {
-                $$('#contentView').toggleClass('contentMode');
-            });
+            var contentView = $$('#contentView');
             
-            document.body.addEventListener('touchmove', function(event) {
-                event.preventDefault;
-            });
-            
-            
-            
+            appMenu.menuBar.swipeLeft(appMenu.nextItem);
+            appMenu.menuBar.swipeRight(appMenu.previousItem);
             
             
         </script>
