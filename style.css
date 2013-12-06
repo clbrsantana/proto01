@@ -27,9 +27,10 @@ div {
 #menuItensBar {
     top:        477px;
     width:    11264px;
-    height:     220px;
+    height:     820px;
     background-color: rgb(249,247,245);
-    -webkit-transition: -webkit-transform .5s cubic-bezier(0.215, 0.610, 0.355, 1.000);;
+    -webkit-transition: -webkit-transform .5s cubic-bezier(0.215, 0.610, 0.355, 1.000),
+        top .6s ease-out;
 }
 
 
@@ -41,6 +42,8 @@ div {
 }
 
 #backgroundAnimation {
+    position: fixed;
+    top: 50px;
     height:477px;
 }
 
@@ -48,12 +51,31 @@ div {
     position: fixed;
     top: 592px;
     z-index:5;
+    -webkit-transition: -webkit-transform 0.2s ease-out;
 }
 
 #setaEsquerda {left: 23px;}
 #setaDireita {left: 983px;}
+#tapToOpen {
+    position:fixed; 
+    left: 418px; 
+    top: 703px;
+    z-index:5;
+    -webkit-transition:opacity .2s linear;
+}
+
+#contentView.contentMode #setaEsquerda { -webkit-transform: translateX(-50px); }
+#contentView.contentMode #setaDireita { -webkit-transform: translateX(50px); }
+
+#contentView.contentMode #tapToOpen {opacity:0}
 
 .menuItem {
     width: 1024px;
     float:left;
 }
+#contentView.contentMode {
+    overflow-y:auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+

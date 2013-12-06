@@ -37,36 +37,40 @@
             <button id="BTNinfo">Info</button>
         </div>
         
+        <img id="backgroundAnimation" src="assets/temp/ariete.png" width=1024></img>
         <div id="contentView">
-            <img id="backgroundAnimation" src="assets/temp/ariete.png" width=1024></img>
             <img src="assets/temp/seta-esquerda.png" id="setaEsquerda" width="17" >
             <img src="assets/temp/seta-direita.png" id="setaDireita" width="17" >
+            <img src="assets/menu/toque.png" id="tapToOpen" width="187.5" >
+            
             <div id="menuItensBar">
-                <div class="menuItem"><img src="assets/temp/intro.png" width="675" style="left:240px;top: 68px;"></div>
-                <div class="menuItem"><img src="assets/temp/ariete_.png" id="ariete" width="496" style="left: 350px;top: -92px;-webkit-transform: translateZ(500px);"></div>
-                <div class="menuItem"><img src="assets/temp/torre.png" id="torre" width="532" style="left: 330px;top: 53px;"></div>
-                <div class="menuItem"><img src="assets/temp/garra.png" width="568.5" style="left: 323px;top: 49px;"></div>
-                <div class="menuItem"><img src="assets/temp/onagro.png" width="387" style="left: 332px;top: 54px;"></div>
-                <div class="menuItem"><img src="assets/temp/ballista.png" width="431.5" style="left: 330px;top: 56px;"></div>
-                <div class="menuItem"><img src="assets/temp/scorpio.png" width="387" style="left: 330px;top: 56px;"></div>
-                <div class="menuItem"><img src="assets/temp/trebuchet.png" width="514.5" style="left: 290px;top: 55px;"></div>
-                <div class="menuItem"><img src="assets/temp/fogo.png" width="544" style="left: 270px;top: 55px;"></div>
-                <div class="menuItem"><img src="assets/temp/bombarda.png" width="499" style="left: 280px;top: 59px;"></div>
-                <div class="menuItem"><img src="assets/temp/tanque.png" width="561" style="left: 270px;top: 56px;"></div>
+                <div class="menuItem"><img src="assets/menu/titleIntro.png"     width="618"     style="left: 295px;top: 65px;"></div>
+                <div class="menuItem"><img src="assets/menu/titleAriete.png"    width="489"     style="left: 360px;top: -96px;"></div>
+                <div class="menuItem"><img src="assets/menu/titleTorre.png"     width="509"     style="left: 315px;top: -253px;"></div>
+                <div class="menuItem"><img src="assets/menu/titleGarra.png"     width="545.5"   style="left: 315px;top: -299.5px;"></div>
+                <div class="menuItem"><img src="assets/menu/titleOnagro.png"    width="495.5"   style="left: 345px;top: -92px;"></div>
+                <div class="menuItem"><img src="assets/menu/titleBallista.png"  width="423"     style="left: 345px;top: -133px;"></div>
+                <div class="menuItem"><img src="assets/menu/titleScorpio.png"   width="378.5"   style="left: 360px;top: -78.5px;"></div>
+                <div class="menuItem"><img src="assets/menu/titleTrebuchet.png" width="557.5"   style="left: 320px;top: -166px;"></div>
+                <div class="menuItem"><img src="assets/menu/titleFogo.png"      width="536"     style="left: 315px;top: -84px;"></div>
+                <div class="menuItem"><img src="assets/menu/titleBombarda.png"  width="491"     style="left: 315px;top: -113px;"></div>
+                <div class="menuItem"><img src="assets/menu/titleTanque.png"    width="545.5"   style="left: 315px;top: -107px;"></div>
             </div>
         </div>
         
         <script src="scripts/quo.js"></script>
         <script>
             var itemCurrent = 0;
-            $$('#setaDireita').on('tap', function() {
+            $$('#setaDireita').on('tap', function(event) {
               console.log('lala');
               if (itemCurrent != 10) {itemCurrent ++;};
               $$('#menuItensBar').style('-webkit-transform', 'translateX(-' + itemCurrent*1024 + 'px)');  
-            });
-            $$('#setaEsquerda').on('tap', function() {
+              event.stopPropagation();
+            }, false);
+            $$('#setaEsquerda').on('tap', function(event) {
               if (itemCurrent != 00) {itemCurrent --;};
               $$('#menuItensBar').style('-webkit-transform', 'translateX(-' + itemCurrent*1024 + 'px)');  
+              event.stopPropagation();
             });
             
             $$('#menuItensBar').swipeLeft(function() {
@@ -77,18 +81,23 @@
             $$('#menuItensBar').swipeRight(function() {
               if (itemCurrent != 0) {itemCurrent --;};
               $$('#menuItensBar').style('-webkit-transform', 'translateX(-' + itemCurrent*1024 + 'px)');  
+              
+            });
+    
+            $$('#menuItensBar').on('touchmove', function(event) {
+                event.stopPropagation;
+            }, false);
+            
+            $$('#contentView').on('touchmove', function(event) {
+                event.stopPropagation;
+            }, false);
+            
+            $$('#contentView').on('tap', function() {
+                $$('#contentView').toggleClass('contentMode');
             });
             
             document.body.addEventListener('touchmove', function(event) {
                 event.preventDefault;
-            });
-            
-            $$('#menuItensBar').on('touchmove', function() {
-                return false;
-            });
-            
-            $$('#contentView').on('touchmove', function() {
-                return false;
             });
             
             
