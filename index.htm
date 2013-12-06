@@ -39,11 +39,11 @@
         
         <img id="backgroundAnimation" src="assets/temp/ariete.png" width=1024></img>
         <div id="contentView">
-            <img src="assets/temp/seta-esquerda.png" id="setaEsquerda" width="17" >
-            <img src="assets/temp/seta-direita.png" id="setaDireita" width="17" >
+            <div id="setaEsquerda" class="leaveState"></div>
+            <div id="setaDireita"></div>
             <img src="assets/menu/toque.png" id="tapToOpen" width="187.5" >
             
-            <div id="menuItensBar">
+            <div id="menuItemsBar">
                 <div class="menuItem" style="-webkit-transform: translateX(-1024px);"><img src="assets/menu/titleIntro.png"     width="618"     style="left: 295px;top: 65px;"></div>
                 <div class="menuItem"><img src="assets/menu/titleAriete.png"    width="489"     style="left: 360px;top: -96px;"></div>
                 <div class="menuItem"><img src="assets/menu/titleTorre.png"     width="509"     style="left: 315px;top: -253px;"></div>
@@ -60,40 +60,56 @@
         
         <script src="scripts/quo.js"></script>
         <script>
-            
-            var appMenu = {
+            var app = {}
+            app.menu = {
                 titlesArray: $$('.menuItem'),
+                setaDireita: $$('#setaDireita'),
+                setaEsquerda: $$('#setaEsquerda'),
                 currentTitle: 0,
-                menuBar: $$('#menuItensBar'),
+                menuBar: $$('#menuItemsBar'),
                 
             };
             
-            appMenu.nextItem = function() { 
+            app.menu.nextItem = function() { 
                 //Trazer próximo item da direita
-                console.log(appMenu.currentTitle);
-                if (appMenu.currentTitle != 10 ) {
-                    appMenu.titlesArray[appMenu.currentTitle].style.webkitTransform = 'translateX(-2048px)';
-                    appMenu.currentTitle ++;
-                    appMenu.titlesArray[appMenu.currentTitle].style.webkitTransform = 'translateX(-1024px)';
+                console.log(app.menu.currentTitle);
+                if (app.menu.currentTitle != 10 ) {
+                    app.menu.setaEsquerda.removeClass('leaveState');
+                    app.menu.titlesArray[app.menu.currentTitle].style.webkitTransform = 'translateX(-2048px)';
+                    app.menu.titlesArray[app.menu.currentTitle].style.opacity = '0';
+                    app.menu.currentTitle ++;
+                    app.menu.titlesArray[app.menu.currentTitle].style.webkitTransform = 'translateX(-1024px)';
+                    app.menu.titlesArray[app.menu.currentTitle].style.opacity = '1';
+                    if (app.menu.currentTitle == 10) {app.menu.setaDireita.addClass('leaveState');}
                 }
                 
             },
             
-            appMenu.previousItem = function() { 
+            app.menu.previousItem = function() { 
                 //Trazer item anterior da esquerda
-                console.log(appMenu.currentTitle);
-                if (appMenu.currentTitle != 0 ) {
-                    appMenu.titlesArray[appMenu.currentTitle].style.webkitTransform = 'translateX(0px)';
-                    appMenu.currentTitle --;
-                    appMenu.titlesArray[appMenu.currentTitle].style.webkitTransform = 'translateX(-1024px)';
+                console.log(app.menu.currentTitle);
+                if (app.menu.currentTitle != 0 ) {
+                    app.menu.setaDireita.removeClass('leaveState');
+                    app.menu.titlesArray[app.menu.currentTitle].style.webkitTransform = 'translateX(0px)';
+                    app.menu.titlesArray[app.menu.currentTitle].style.opacity = '0';
+                    app.menu.currentTitle --;
+                    app.menu.titlesArray[app.menu.currentTitle].style.webkitTransform = 'translateX(-1024px)';
+                    app.menu.titlesArray[app.menu.currentTitle].style.opacity = '1';
+                    if (app.menu.currentTitle == 0) {app.menu.setaEsquerda.addClass('leaveState');}
                 }
             }
             
             var contentView = $$('#contentView');
             
-            appMenu.menuBar.swipeLeft(appMenu.nextItem);
-            appMenu.menuBar.swipeRight(appMenu.previousItem);
             
+            // Eventos do Menu
+            
+            app.menu.menuBar.swipeLeft(app.menu.nextItem);
+            app.menu.menuBar.swipeRight(app.menu.previousItem);
+            app.menu.setaDireita.tap(app.menu.nextItem);
+            app.menu.setaEsquerda.tap(app.menu.previousItem);
+            
+            //Eventos da Barra de Navegação
             
         </script>
     </body>

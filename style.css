@@ -20,7 +20,7 @@ div {
     z-index:10;
 }
 
-#menuItensBar {
+#menuItemsBar {
     top:        477px;
     width:    11264px;
     height:     820px;
@@ -43,13 +43,23 @@ div {
 
 #setaEsquerda, #setaDireita {
     position: fixed;
-    top: 592px;
+    top: 527px;
+    width: 77px;
+    height: 220px;
     z-index:5;
-    -webkit-transition: -webkit-transform 0.2s ease-out;
+    -webkit-transition: -webkit-transform 0.5s ease-out;
+    background-size: 200%;
 }
 
-#setaEsquerda {left: 23px;}
-#setaDireita {left: 983px;}
+#setaEsquerda {left: 0; background-image:url(assets/menu/setaEsquerda.png);}
+#setaDireita {right: 0; background-image:url(assets/menu/setaDireita.png);}
+
+#setaEsquerda.leaveState {-webkit-transform: translateX(-100px);}
+#setaDireita.leaveState {-webkit-transform: translateX(100px);}
+
+#setaEsquerda:active, #setaDireita:active {
+    background-position:right;
+}
 #tapToOpen {
     position:fixed; 
     left: 418px; 
@@ -68,7 +78,11 @@ div {
     width: 1024px;
     left: 1024px;
     top:0;
-    -webkit-transition: -webkit-transform .5s cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    z-index: 5;
+    pointer-events: none;
+    -webkit-backface-visibility: hidden; /* Tentativa de acabar com os elementos "piscantes". Funcionou MAGICAMENTE XD */
+    -webkit-transition: -webkit-transform .5s cubic-bezier(0.215, 0.610, 0.355, 1.000),
+                        opacity .2s linear;
 }
 
 .menuItem img {
