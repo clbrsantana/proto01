@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html manifest="manifest.appcache">
 
     <head>
         <title>proto01</title>
@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale = 1, maximum-scale=1.0, user-scalable=no">
         <link rel="apple-touch-icon-precomposed" href="assets/icon/apple-touch-icon-144.png" sizes="144x144">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        
+        <meta name="format-detection" content="telephone=no">
         <link href="assets/startup/startup-portrait.png"
               media="(device-width: 768px) and (device-height: 1024px)
                  and (orientation: portrait)
@@ -26,19 +26,19 @@
     
     <body>
         
-        <img id="ajudaScreen" src="assets/temp/ajuda.png" width=1024 class="hidden"></img>
-        
+        <div id="helpScreen" style="display: none;"></div>
+        <div id="infoModal" class='hidden'style="display: none;"><div class='closeBTN'></div></div>
         <div id="navbar">
-            <img src="assets/temp/navbar.png" width=1024>
-            <button id="BTNback" class="">Voltar</button>
-            <button id="BTNinventoTitle" class="">Título</button>
-            <button id="BTNaudioControl">Volume</button>
-            <button id="BTNhelp">Ajuda</button>
-            <button id="BTNinfo">Info</button>
+            <div id="BTNback"></div>
+            <div id="BTNtitle"></div>
+            <div id="BTN3d"></div>
+            <div id="BTNaudioControl"></div>
+            <div id="BTNhelp"></div>
+            <div id="BTNinfo"></div>
         </div>
         
         <img id="backgroundAnimation" src="assets/temp/ariete.png" width=1024></img>
-        <div id="contentView">
+        <div id="mainView">
             <div id="setaEsquerda" class="leaveState"></div>
             <div id="setaDireita"></div>
             <img src="assets/menu/toque.png" id="tapToOpen" width="187.5" >
@@ -60,9 +60,15 @@
         
         <script src="scripts/quo.js"></script>
         <script>
-            var app = {}
+            var app = {
+                mainView: $$('#mainView'),
+                helpView: $$('#helpScreen'),
+                navBar: $$('#navbar'),
+                infoModal: $$('#infoModal')
+            }
             app.menu = {
                 titlesArray: $$('.menuItem'),
+                minititles: ['minititleIntro.png','minititleAriete.png', 'minititleTorre.png','minititleGarra.png','minititleOnagro.png','minititleBallista.png','minititleScorpio.png','minititleTrebuchet.png','minititleFogo.png','minititleBombarda.png','minititleTanque.png',],
                 setaDireita: $$('#setaDireita'),
                 setaEsquerda: $$('#setaEsquerda'),
                 currentTitle: 0,
@@ -70,9 +76,16 @@
                 
             };
             
+            app.audio = {
+                state:0, //0=play all, 1=OnlyFX, 2=mute
+            }
+            
+            app.audio.setState = function(s) {
+                app.audio.state = s;
+            }
+            
             app.menu.nextItem = function() { 
                 //Trazer próximo item da direita
-                console.log(app.menu.currentTitle);
                 if (app.menu.currentTitle != 10 ) {
                     app.menu.setaEsquerda.removeClass('leaveState');
                     app.menu.titlesArray[app.menu.currentTitle].style.webkitTransform = 'translateX(-2048px)';
@@ -87,7 +100,6 @@
             
             app.menu.previousItem = function() { 
                 //Trazer item anterior da esquerda
-                console.log(app.menu.currentTitle);
                 if (app.menu.currentTitle != 0 ) {
                     app.menu.setaDireita.removeClass('leaveState');
                     app.menu.titlesArray[app.menu.currentTitle].style.webkitTransform = 'translateX(0px)';
@@ -99,17 +111,114 @@
                 }
             }
             
-            var contentView = $$('#contentView');
+            app.menu.openContent = function(e) {
+                console.log(e);
+                invento = app.menu.currentTitle;
+                title = app.menu.titlesArray[app.menu.currentTitle];
+                $$('#BTNtitle').style('background-image', 'url(assets/menu/' + app.menu.minititles[app.menu.currentTitle] + ')');
+                app.mainView.addClass('contentMode');
+                app.navBar.addClass('contentMode');
+                
+                $$('.menuItem img').off("tap", app.menu.openContent); // Remover os Listeners do Menu
+                $$('#tapToOpem').off("tap", app.menu.openContent);
+                app.menu.menuBar.off('swipeLeft', app.menu.nextItem);
+                app.menu.menuBar.off('swipeRight', app.menu.previousItem);
+                app.menu.setaDireita.off("tap", app.menu.nextItem);
+                app.menu.setaEsquerda.off("tap", app.menu.previousItem);
+                
+                document.removeEventListener('touchmove', lockOverscroll, true) // Remover o listener que bloqueia o scroll no app
+            }
+            
+            app.menu.closeContent = function(e) {
+                console.log(e);
+                app.mainView.removeClass('contentMode');
+                app.navBar.removeClass('contentMode');
+                
+                $$('.menuItem img').on("tap", app.menu.openContent); // Redefinir os Listeners do Menu 
+                $$('#tapToOpen').on("tap", app.menu.openContent);
+                app.menu.menuBar.on('swipeLeft', app.menu.nextItem);
+                app.menu.menuBar.on('swipeRight', app.menu.previousItem);
+                app.menu.setaDireita.on('tap', app.menu.nextItem);
+                app.menu.setaEsquerda.on('tap', app.menu.previousItem);
+                
+                document.addEventListener('touchmove', lockOverscroll, true); // Redefinir o listener que bloqueia o overscroll
+
+            }
             
             
-            // Eventos do Menu
+// Eventos do Menu -----------------
             
-            app.menu.menuBar.swipeLeft(app.menu.nextItem);
-            app.menu.menuBar.swipeRight(app.menu.previousItem);
-            app.menu.setaDireita.tap(app.menu.nextItem);
-            app.menu.setaEsquerda.tap(app.menu.previousItem);
+            app.menu.menuBar.on('swipeLeft', app.menu.nextItem);
+            app.menu.menuBar.on('swipeRight', app.menu.previousItem);
+            app.menu.setaDireita.on('tap', app.menu.nextItem);
+            app.menu.setaEsquerda.on('tap', app.menu.previousItem);
             
-            //Eventos da Barra de Navegação
+            $$('.menuItem img').on('tap',app.menu.openContent);
+            $$('.menuItem img').on('swipeUp',app.menu.openContent);
+            $$('#tapToOpen').on('tap',app.menu.openContent);
+            $$('#BTNback').on('tap',app.menu.closeContent);
+
+//Eventos da Barra de Navegação ------
+            
+            $$('#BTNinfo').tap( function() {
+                app.infoModal.show();
+                setTimeout(function() {app.infoModal.removeClass('hidden');}, 50);
+                
+                app.infoModal.tap( function() {
+                    app.infoModal.addClass('hidden');
+                    setTimeout(function() {app.infoModal.hide();}, 50);
+                });
+            });
+                       
+            $$('#BTNhelp').on('tap', function() {
+                app.helpView.show();
+                setTimeout( function() {app.helpView.style('opacity', '1')}, 50 );
+            });
+            var timer;
+            $$('#BTNaudioControl').on('tap', function() {
+                btn = $$('#BTNaudioControl');
+                audioState = app.audio.state;
+                btn.addClass('tooltip');
+                clearTimeout(timer);
+                timer = setTimeout(function(){
+                    btn.removeClass('tooltip');
+                }, 1500);
+                switch (audioState) {
+                    case 0:
+                        btn.removeClass('full');
+                        btn.removeClass('hollow');
+                        btn.addClass('half');
+                        app.audio.setState(1);
+                        break;
+                    case 1:
+                        //mudar sprite para hollow
+                        btn.removeClass('full');
+                        btn.removeClass('half');
+                        btn.addClass('hollow');
+                        app.audio.setState(2);
+                        break;
+                    case 2:
+                        //mudar sprite para full
+                        btn.removeClass('hollow');
+                        btn.removeClass('half');
+                        btn.addClass('full');
+                        app.audio.setState(0);
+                        break;
+                }
+            });
+            
+// Eventos da Ajuda ---------------
+            
+            app.helpView.on('tap', function() {
+                // ao tocar em qualquer parte da tela, fadeOut (transition) e depois display hidden
+                app.helpView.style('opacity', '0');
+                setTimeout( function() {app.helpView.hide();}, 500);
+            });
+            
+            //Tentativa de bloquear o overscroll/scroll elástico. Funciona, mas bloqueia todo o scroll no app. Nos momentos em que o scroll é necessário, remover o listener
+            document.addEventListener('touchmove', lockOverscroll, true);
+            
+            function lockOverscroll(e) { e.preventDefault(); };
             
         </script>
     </body>

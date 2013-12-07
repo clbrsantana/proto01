@@ -1,38 +1,57 @@
+@font-face {
+    font-family: 'Open Sans';
+    src: url('assets/fonts/OpenSans-Bold-webfont.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+
 html, body {
     margin: 0;
     padding: 0;
+    font-family: 'Open Sans';
+    overflow:hidden;
 }
 
 * {
     box-sizing: border-box;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -webkit-user-drag:none;
 }
 
 div {
     position: absolute;
 }
 
-.hidden {
-    display: none;
-}
-
 #navbar {
     position:fixed;
+    width: 1024px;
+    height: 50px;
     z-index:10;
+    background-color:rgb(15,15,15);
 }
 
 #menuItemsBar {
     top:        477px;
     width:    11264px;
-    height:     820px;
+    height:     220px;
     background-color: rgb(249,247,245);
+    -webkit-transition: -webkit-transform .8s cubic-bezier(0.215, 0.610, 0.355, 1.000);
+
 }
 
+#menuItemsBar, #menuItemsBar *, #mainView {
+    -webkit-backface-visibility: hidden; /* Tentativa de acabar com os elementos "piscantes". Cara, isso funciona SEMPRE! */
+}
 
-#contentView {
+#mainView {
     top:         50px;
     height:     697px;
     width:     1024px;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y:scroll
+    -webkit-transition: -webkit-filter .4s ease-out;
 }
 
 #backgroundAnimation {
@@ -54,12 +73,6 @@ div {
 #setaEsquerda {left: 0; background-image:url(assets/menu/setaEsquerda.png);}
 #setaDireita {right: 0; background-image:url(assets/menu/setaDireita.png);}
 
-#setaEsquerda.leaveState {-webkit-transform: translateX(-100px);}
-#setaDireita.leaveState {-webkit-transform: translateX(100px);}
-
-#setaEsquerda:active, #setaDireita:active {
-    background-position:right;
-}
 #tapToOpen {
     position:fixed; 
     left: 418px; 
@@ -68,16 +81,23 @@ div {
     -webkit-transition:opacity .2s linear;
 }
 
-#contentView.contentMode #setaEsquerda { -webkit-transform: translateX(-50px); }
-#contentView.contentMode #setaDireita { -webkit-transform: translateX(50px); }
+#mainView.contentMode #setaEsquerda, #setaEsquerda.leaveState {-webkit-transform: translateX(-100px);}
+#mainView.contentMode #setaDireita, #setaDireita.leaveState {-webkit-transform: translateX(100px);}
 
-#contentView.contentMode #tapToOpen {opacity:0}
+#setaEsquerda:active, #setaDireita:active {
+    background-position: right;
+}
+
+#mainView.contentMode #tapToOpen, #tapToOpen.leaveState {
+    opacity: 0;
+}
 
 .menuItem {
     position:absolute;
     width: 1024px;
     left: 1024px;
     top:0;
+    height:220px;
     z-index: 5;
     pointer-events: none;
     -webkit-backface-visibility: hidden; /* Tentativa de acabar com os elementos "piscantes". Funcionou MAGICAMENTE XD */
@@ -87,11 +107,177 @@ div {
 
 .menuItem img {
     position:relative;
+    pointer-events: auto;
 }
 
-#contentView.contentMode {
-    overflow-y:auto;
+#mainView.contentMode {
+    overflow-y:auto !important;
     -webkit-overflow-scrolling: touch;
 }
 
+#mainView.contentMode #menuItemsBar{
+    -webkit-transform:translateY(-200px);
+}
+
+
+#helpScreen {
+    position:fixed;
+    background:rgba(0,0,0,0.8);
+    top: 0;
+    left: 0;
+    width: 1024px;
+    height: 748px;
+    z-index: 90;
+    -webkit-transition: opacity .3s ease-out;
+    opacity:0;
+}
+
+
+#navbar * {
+    -webkit-transition: -webkit-transform 0.2s cubic-bezier(.21, .61, .61, 1);
+}
+
+#BTNaudioControl {
+    top: 1px;
+    left: 20px;
+    height:50px;
+    width:35px;
+    padding:15px 5px;
+    background-image:url(assets/navbar/audioSprite.png);
+    background-position:left;
+    background-size: 75px 20px;
+    background-clip:content-box;
+    background-origin:content-box;
+    
+}
+
+#BTNaudioControl.full{background-position-x:0px;}
+#BTNaudioControl.half{background-position-x:-25px;}
+#BTNaudioControl.hollow{background-position-x:-50px;}
+
+#BTNaudioControl::after {
+    opacity:1;
+    width:200px;
+    position:fixed;
+    top:60px;
+    text-transform:uppercase;
+    font-size:12px;
+    -webkit-transition: opacity .3s ease-out,
+                        -webkit-transform .3s ease-out;
+    -webkit-transform: translateY(0);
+}
+
+#BTNaudioControl.tooltip::after {
+    opacity:1;
+    -webkit-transform: translateY(5px);
+}
+
+#BTNaudioControl.full::after { content: "Música e Efeitos Sonoros"; }
+#BTNaudioControl.half::after { content: "Apenas Efeitos Sonoros"; }
+#BTNaudioControl.hollow::after { content: "Mudo"; }
+
+
+#BTNhelp {
+    top: 1px;
+    left: 67px;
+    width: 35px;
+    height: 50px;
+    background-image:url(assets/navbar/helpBTN.png);
+    background-size:20px 20px;
+    background-clip:content-box;
+    background-origin:content-box;
+    padding: 15px 7px;
+    background-repeat:no-repeat;
+}
+
+#BTNhelp:hover { opacity:0.5;}
+
+#BTNinfo {
+    left: 865px;
+    top: 15px;
+    width: 140px;
+    height: 20px;
+    background-image:url(assets/navbar/serieLogo_info.png);
+    background-repeat:no-repeat;
+    background-size:100%;
+}
+
+#BTNinfo:hover { opacity:0.5;}
+
+
+#BTNback {
+    height:50px;
+    width: 75px;
+    background-image:url(assets/navbar/backBTN.png);
+    background-size: 100%;
+    top: 0;
+    -webkit-transform: translateX(-350px);
+}
+
+#BTNback:hover {
+    opacity:.5;
+}
+    
+#BTN3d {
+    left: 355px;
+    top: 14px;
+    width: 35px;
+    height: 21.5px;
+    background-image:url(assets/navbar/3dBTN.png);
+    background-size: 100%;
+    -webkit-transform: translateX(-450px);
+}
+
+#BTNtitle {
+    width: 241px;
+    height: 28.5px;
+    background-image:url(assets/menu/minititleGarra.png);
+    left: 100px;
+    top:   11px;
+    background-size:100%;
+    -webkit-transform: translateX(-350px);
+}
+
+#navbar.contentMode #BTNback, #navbar.contentMode #BTNtitle, #navbar.contentMode #BTN3d {
+    -webkit-transform: translateX(0);
+}
+
+#navbar.contentMode #BTNhelp, #navbar.contentMode #BTNaudioControl {
+    -webkit-transform: translateX(385px);
+}
+
+#infoModal {
+    left:0;
+    top: 0;
+    width:1024px;
+    height: 748px;
+    background-position: 107px 111px;
+    background-size: 804px 512px;
+    background-image:url(assets/infoWindow.png);
+    background-repeat:no-repeat;
+    z-index: 50;
+    position: fixed;
+    -webkit-transition: -webkit-transform .5s cubic-bezier(.21, .61, .61, 1);
+}
+
+#infoModal .closeBTN {
+    position:absolute;
+    background-image:url(assets/closeBTN.png);
+    background-size: 20px 20px;
+    background-origin:content-box;
+    background-clip:content-box;
+    width: 40px;
+    height: 40px;
+    top: 115px;
+    right: 117px;
+    padding:10px;
+}
+
+.closeBTN:hover {
+    opacity:.5;
+}
+
+#infoModal.hidden {
+    -webkit-transform: translateY(-1024px) scaleY(1.5);
+}
 
