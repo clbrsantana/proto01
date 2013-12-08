@@ -44,7 +44,7 @@
             <img src="assets/menu/toque.png" id="tapToOpen" width="187.5" >
             
             <div id="menuItemsBar">
-                <div class="menuItem" style="-webkit-transform: translateX(-1024px);"><img src="assets/menu/titleIntro.png"     width="618"     style="left: 295px;top: 65px;"></div>
+                <div class="menuItem" style="-webkit-transform: translateX(0);"><img src="assets/menu/titleIntro.png"     width="618"     style="left: 295px;top: 65px;"></div>
                 <div class="menuItem"><img src="assets/menu/titleAriete.png"    width="489"     style="left: 360px;top: -96px;"></div>
                 <div class="menuItem"><img src="assets/menu/titleTorre.png"     width="509"     style="left: 315px;top: -253px;"></div>
                 <div class="menuItem"><img src="assets/menu/titleGarra.png"     width="545.5"   style="left: 315px;top: -299.5px;"></div>
@@ -64,75 +64,96 @@
                 mainView: $$('#mainView'),
                 helpView: $$('#helpScreen'),
                 navBar: $$('#navbar'),
-                infoModal: $$('#infoModal')
+                infoModal: $$('#infoModal'),
+                bg: $$('#backgroundAnimation')
             }
             app.menu = {
+                itemsCache: 0,
                 titlesArray: $$('.menuItem'),
-                minititles: ['minititleIntro.png','minititleAriete.png', 'minititleTorre.png','minititleGarra.png','minititleOnagro.png','minititleBallista.png','minititleScorpio.png','minititleTrebuchet.png','minititleFogo.png','minititleBombarda.png','minititleTanque.png',],
+                minititles: ['minititleIntro.png',
+                    'minititleAriete.png',
+                    'minititleTorre.png',
+                    'minititleGarra.png',
+                    'minititleOnagro.png',
+                    'minititleBallista.png',
+                    'minititleScorpio.png',
+                    'minititleTrebuchet.png',
+                    'minititleFogo.png',
+                    'minititleBombarda.png'
+                    ,'minititleTanque.png',],
                 setaDireita: $$('#setaDireita'),
                 setaEsquerda: $$('#setaEsquerda'),
                 currentTitle: 0,
-                menuBar: $$('#menuItemsBar'),
+                menuBar: $$('#menuItemsBar')
                 
             };
             
             app.audio = {
-                state:0, //0=play all, 1=OnlyFX, 2=mute
+                state:0 //0=play all, 1=OnlyFX, 2=mute
             }
             
             app.audio.setState = function(s) {
                 app.audio.state = s;
             }
             
-            app.menu.nextItem = function() { 
+            app.menu.nextItem = function(e) { 
                 //Trazer próximo item da direita
                 if (app.menu.currentTitle != 10 ) {
                     app.menu.setaEsquerda.removeClass('leaveState');
-                    app.menu.titlesArray[app.menu.currentTitle].style.webkitTransform = 'translateX(-2048px)';
+                    
+                    
+                    app.menu.titlesArray[app.menu.currentTitle].style.webkitTransform = 'translateX(-1024px)';
                     app.menu.titlesArray[app.menu.currentTitle].style.opacity = '0';
                     app.menu.currentTitle ++;
-                    app.menu.titlesArray[app.menu.currentTitle].style.webkitTransform = 'translateX(-1024px)';
+                    app.menu.titlesArray[app.menu.currentTitle].style.webkitTransform = 'translateX(0px)';
                     app.menu.titlesArray[app.menu.currentTitle].style.opacity = '1';
                     if (app.menu.currentTitle == 10) {app.menu.setaDireita.addClass('leaveState');}
                 }
                 
-            },
+            }
             
             app.menu.previousItem = function() { 
                 //Trazer item anterior da esquerda
                 if (app.menu.currentTitle != 0 ) {
                     app.menu.setaDireita.removeClass('leaveState');
-                    app.menu.titlesArray[app.menu.currentTitle].style.webkitTransform = 'translateX(0px)';
+                    app.menu.titlesArray[app.menu.currentTitle].style.webkitTransform = 'translateX(1024px)';
                     app.menu.titlesArray[app.menu.currentTitle].style.opacity = '0';
                     app.menu.currentTitle --;
-                    app.menu.titlesArray[app.menu.currentTitle].style.webkitTransform = 'translateX(-1024px)';
+                    app.menu.titlesArray[app.menu.currentTitle].style.webkitTransform = 'translateX(0px)';
                     app.menu.titlesArray[app.menu.currentTitle].style.opacity = '1';
                     if (app.menu.currentTitle == 0) {app.menu.setaEsquerda.addClass('leaveState');}
                 }
             }
             
             app.menu.openContent = function(e) {
-                console.log(e);
+
                 invento = app.menu.currentTitle;
                 title = app.menu.titlesArray[app.menu.currentTitle];
                 $$('#BTNtitle').style('background-image', 'url(assets/menu/' + app.menu.minititles[app.menu.currentTitle] + ')');
                 app.mainView.addClass('contentMode');
                 app.navBar.addClass('contentMode');
+                app.bg.addClass('contentMode');
+                
                 
                 $$('.menuItem img').off("tap", app.menu.openContent); // Remover os Listeners do Menu
-                $$('#tapToOpem').off("tap", app.menu.openContent);
+                $$('#tapToOpen').off("tap", app.menu.openContent);
                 app.menu.menuBar.off('swipeLeft', app.menu.nextItem);
                 app.menu.menuBar.off('swipeRight', app.menu.previousItem);
                 app.menu.setaDireita.off("tap", app.menu.nextItem);
                 app.menu.setaEsquerda.off("tap", app.menu.previousItem);
                 
                 document.removeEventListener('touchmove', lockOverscroll, true) // Remover o listener que bloqueia o scroll no app
+                
+                
+                app.menu.itemsCache = $$(title).siblings().remove();
+   
             }
             
             app.menu.closeContent = function(e) {
-                console.log(e);
                 app.mainView.removeClass('contentMode');
                 app.navBar.removeClass('contentMode');
+                app.bg.removeClass('contentMode');
+                app.menu.menuBar.append(app.menu.itemsCache);
                 
                 $$('.menuItem img').on("tap", app.menu.openContent); // Redefinir os Listeners do Menu 
                 $$('#tapToOpen').on("tap", app.menu.openContent);
@@ -142,7 +163,6 @@
                 app.menu.setaEsquerda.on('tap', app.menu.previousItem);
                 
                 document.addEventListener('touchmove', lockOverscroll, true); // Redefinir o listener que bloqueia o overscroll
-
             }
             
             

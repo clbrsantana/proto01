@@ -10,10 +10,13 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: 'Open Sans';
-    overflow:hidden;
 }
 
-* {
+body {
+    background-color:rgb(220,215,190);
+}
+
+* { 
     box-sizing: border-box;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -34,7 +37,7 @@ div {
 
 #menuItemsBar {
     top:        477px;
-    width:    11264px;
+    width:    1024px;
     height:     220px;
     background-color: rgb(249,247,245);
     -webkit-transition: -webkit-transform .8s cubic-bezier(0.215, 0.610, 0.355, 1.000);
@@ -49,8 +52,7 @@ div {
     top:         50px;
     height:     697px;
     width:     1024px;
-    overflow-x: hidden;
-    overflow-y:scroll
+    overflow: hidden;
     -webkit-transition: -webkit-filter .4s ease-out;
 }
 
@@ -58,6 +60,12 @@ div {
     position: fixed;
     top: 50px;
     height:477px;
+    -webkit-transition: opacity .5s linear;
+    opacity: 1;
+}
+
+#backgroundAnimation.contentMode {
+    opacity:0.8;
 }
 
 #setaEsquerda, #setaDireita {
@@ -65,8 +73,8 @@ div {
     top: 527px;
     width: 77px;
     height: 220px;
-    z-index:5;
-    -webkit-transition: -webkit-transform 0.5s ease-out;
+    z-index: 7;
+    -webkit-transition: -webkit-transform 0.5s ease-out 0.5s;
     background-size: 200%;
 }
 
@@ -95,11 +103,12 @@ div {
 .menuItem {
     position:absolute;
     width: 1024px;
-    left: 1024px;
+    left: 0;
     top:0;
     height:220px;
     z-index: 5;
     pointer-events: none;
+    -webkit-transform:translateX(1024px);
     -webkit-backface-visibility: hidden; /* Tentativa de acabar com os elementos "piscantes". Funcionou MAGICAMENTE XD */
     -webkit-transition: -webkit-transform .5s cubic-bezier(0.215, 0.610, 0.355, 1.000),
                         opacity .2s linear;
@@ -156,7 +165,7 @@ div {
 #BTNaudioControl.hollow{background-position-x:-50px;}
 
 #BTNaudioControl::after {
-    opacity:1;
+    opacity:0;
     width:200px;
     position:fixed;
     top:60px;
