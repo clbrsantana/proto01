@@ -37,7 +37,7 @@
             <div id="BTNinfo"></div>
         </div>
         
-        <img id="backgroundAnimation" src="assets/temp/ariete.png" width=1024></img>
+        <div id="backgroundAnimation"></div>
         <div id="mainView">
             <div id="setaEsquerda" class="leaveState"></div>
             <div id="setaDireita"></div>
@@ -51,7 +51,20 @@
                 <div class="menuItem"><img src="assets/menu/titleOnagro.png"    width="495.5"   style="left: 345px;top: -92px;"></div>
                 <div class="menuItem"><img src="assets/menu/titleBallista.png"  width="423"     style="left: 345px;top: -133px;"></div>
                 <div class="menuItem"><img src="assets/menu/titleScorpio.png"   width="378.5"   style="left: 360px;top: -78.5px;"></div>
-                <div class="menuItem"><img src="assets/menu/titleTrebuchet.png" width="557.5"   style="left: 320px;top: -166px;"></div>
+                <div class="menuItem hide" style='height:4060px;'><img src="assets/menu/titleTrebuchet.png" width="557.5"   style="left: 320px;top: -166px; ">
+                    <div class="background"></div>
+                    <div class="slogan"></div>
+                    <div class="text" id='text_01' style='background-image:url(assets/invt/tre/text_1.png);         height:306px; top: 308px;'></div>
+                    <div class="standard" id='standard_01'style='background-image:url(assets/invt/tre/standard_1.png); height:454px; top: 185px;'></div>
+                    <div class="iAction" style='background-image:url(assets/invt/tre/iaction_1.png);   height:615px; top: 690px;'></div>
+                    <div class="text" style='background-image:url(assets/invt/tre/text_2.png);         height:508px; top: 1529px;'></div>
+                    <div class="standard" style='background-image:url(assets/invt/tre/standard_2.png); height:570px; top: 1491px;'></div>
+                    <div class="iAction" style='background-image:url(assets/invt/tre/iaction_2.png);   height:614px; top: 2072px;'></div>
+                    <div class="text" style='background-image:url(assets/invt/tre/text_3.png);         height:498px; top: 2920px;'></div>
+                    <div class="standard" style='background-image:url(assets/invt/tre/standard_3.png); height:549px; top: 2876px;'></div>
+                    <div class="iAction" style='background-image:url(assets/invt/tre/iaction_3.png);   height:606px; top: 3435px;'></div>
+                    <div class="endLine"></div>
+                </div>
                 <div class="menuItem"><img src="assets/menu/titleFogo.png"      width="536"     style="left: 315px;top: -84px;"></div>
                 <div class="menuItem"><img src="assets/menu/titleBombarda.png"  width="491"     style="left: 315px;top: -113px;"></div>
                 <div class="menuItem"><img src="assets/menu/titleTanque.png"    width="545.5"   style="left: 315px;top: -107px;"></div>
@@ -84,6 +97,7 @@
                 setaDireita: $$('#setaDireita'),
                 setaEsquerda: $$('#setaEsquerda'),
                 currentTitle: 0,
+                currentBGFrame: 0,
                 menuBar: $$('#menuItemsBar')
                 
             };
@@ -100,6 +114,7 @@
                 //Trazer próximo item da direita
                 if (app.menu.currentTitle != 10 ) {
                     app.menu.setaEsquerda.removeClass('leaveState');
+                    app.menu.nextBG();             
                     
                     
                     app.menu.titlesArray[app.menu.currentTitle].style.webkitTransform = 'translateX(-1024px)';
@@ -112,9 +127,28 @@
                 
             }
             
+            app.menu.nextBG = function() {
+                seqArray[app.menu.currentBGFrame].removeClass('show');
+                ++ app.menu.currentBGFrame;
+                seqArray[app.menu.currentBGFrame].addClass('show');
+                if (app.menu.currentBGFrame % 30 != 0 ) {
+                    anim = window.requestAnimationFrame? requestAnimationFrame(app.menu.nextBG): webkitRequestAnimationFrame(app.menu.nextBG); // polyfill para funcionar no chrome e no ipad(que requer o vendor prefix antes da versão 7)
+                }
+            }
+            var xx;
+            app.menu.previousBG = function() {
+                seqArray[app.menu.currentBGFrame].removeClass('show');
+                -- app.menu.currentBGFrame;
+                seqArray[app.menu.currentBGFrame].addClass('show');
+                if (app.menu.currentBGFrame % 30 != 0 ) {
+                    anim = window.requestAnimationFrame? requestAnimationFrame(app.menu.previousBG): webkitRequestAnimationFrame(app.menu.previousBG); // polyfill para funcionar no chrome e no ipad(que requer o vendor prefix antes da versão 7)
+                }
+            }
+            
             app.menu.previousItem = function() { 
                 //Trazer item anterior da esquerda
                 if (app.menu.currentTitle != 0 ) {
+                    app.menu.previousBG();             
                     app.menu.setaDireita.removeClass('leaveState');
                     app.menu.titlesArray[app.menu.currentTitle].style.webkitTransform = 'translateX(1024px)';
                     app.menu.titlesArray[app.menu.currentTitle].style.opacity = '0';
@@ -146,6 +180,10 @@
                 
                 
                 app.menu.itemsCache = $$(title).siblings().remove();
+                
+                setTimeout(function(){
+                    $$('.menuItem').removeClass('hide');
+                }, 500);
    
             }
             
@@ -240,6 +278,28 @@
             
             function lockOverscroll(e) { e.preventDefault(); };
             
+//Animação do Menu - Primeiros Testes. Vou tentar utilizar o documentFragment para inserir as imagens no menu.
+            
+            fragment = document.createDocumentFragment();
+            var seqArray = new Array();
+            for (i=0; i<=300; i++){
+                str = 'assets/menu/seq/A/' + addZeros(i,4) + '.png';
+                elmt = $$(document.createElement('img'));
+                elmt.attr('src', str);
+                elmt.attr('width', '1024');
+                $$(fragment).append(elmt);
+                seqArray[i] = elmt;
+            }
+            app.bg.append(fragment);
+            
+            
+            function addZeros(number, length) {
+                var num = '' + number;
+                while (num.length < length) {
+                    num = '0' + num;
+                }
+                return num;
+            }
         </script>
     </body>
 </html>

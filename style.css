@@ -13,7 +13,7 @@ html, body {
 }
 
 body {
-    background-color:rgb(220,215,190);
+    background-color:rgb(44,42,28);
 }
 
 * { 
@@ -59,9 +59,12 @@ div {
 #backgroundAnimation {
     position: fixed;
     top: 50px;
+    width: 1024px;
     height:477px;
     -webkit-transition: opacity .5s linear;
     opacity: 1;
+    background-image:url(assets/menu/bg.png);
+    background-size:100%;
 }
 
 #backgroundAnimation.contentMode {
@@ -128,6 +131,10 @@ div {
     -webkit-transform:translateY(-200px);
 }
 
+#mainView.contentMode .menuItem {
+    height:3600px;
+    background:rgb(249,247,245);
+}
 
 #helpScreen {
     position:fixed;
@@ -255,6 +262,8 @@ div {
     -webkit-transform: translateX(385px);
 }
 
+
+
 #infoModal {
     left:0;
     top: 0;
@@ -290,3 +299,81 @@ div {
     -webkit-transform: translateY(-1024px) scaleY(1.5);
 }
 
+.menuItem .background {
+    width: 100px;
+    left: 90px;
+    height:300px;
+    bottom:0;
+    top: 0;
+    background-color: rgb(243,240,226);
+    -webkit-transition:height 0.4s ease-out;
+}
+.menuItem .slogan {
+    background-image:url(assets/invt/tre/slogan.png);
+    background-size: 100%;
+    width: 600px;
+    height: 64px;
+    top: 203px;
+    left: 278px;
+    -webkit-transition: -webkit-transform .4s ease-out,
+                        opacity .4s linear;
+}
+.menuItem .text {
+    background-image:url(assets/invt/tre/text_1.png);
+    background-size: 100%;
+    width: 601px;
+    left: 278px;
+    -webkit-transition: -webkit-transform .4s ease-out .2s,
+                        opacity .4s linear .2s;
+}
+.menuItem .standard {
+    background-image:url(assets/invt/tre/standard_1.png);
+    background-size: 100%;
+    width: 179px;
+    left: 50px;
+    -webkit-transition: height .4s ease-out .2s;
+}
+
+.menuItem .iAction {
+    background-image:url(assets/invt/tre/iaction_1.png);
+    background-size: 100%;
+    width: 1024px;
+    left: 0px;
+}
+
+.menuItem .endLine {
+    background-image:url(assets/invt/tre/endLine.png);
+    background-size: 100%;
+    width: 1024px;
+    height: 9px;
+    bottom: 0;
+    left: 0px;
+}
+
+.menuItem.hide .background {
+    height:0;
+}
+
+.menuItem.hide .slogan {
+    -webkit-transform:translateX(40px);
+    opacity:0;
+}
+
+.menuItem.hide #text_01 {
+    -webkit-transform:translateX(40px);
+    opacity:0;
+}
+
+.menuItem.hide #standard_01 {
+    height:0 !important;
+}
+
+
+#backgroundAnimation img {
+    position:absolute;
+    display:none;
+}
+
+#backgroundAnimation img.show {
+    display: block;
+}
