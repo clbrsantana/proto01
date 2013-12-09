@@ -172,7 +172,7 @@ div {
 #BTNaudioControl.hollow{background-position-x:-50px;}
 
 #BTNaudioControl::after {
-    opacity:0;
+    display:none;
     width:200px;
     position:fixed;
     top:60px;
@@ -184,7 +184,7 @@ div {
 }
 
 #BTNaudioControl.tooltip::after {
-    opacity:1;
+    display:block;
     -webkit-transform: translateY(5px);
 }
 

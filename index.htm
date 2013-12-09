@@ -44,7 +44,12 @@
             <img src="assets/menu/toque.png" id="tapToOpen" width="187.5" >
             
             <div id="menuItemsBar">
-                <div class="menuItem" style="-webkit-transform: translateX(0);"><img src="assets/menu/titleIntro.png"     width="618"     style="left: 295px;top: 65px;"></div>
+                <div class="menuItem hide" style="-webkit-transform: translateX(0);"><img src="assets/menu/titleIntro.png"     width="618"     style="left: 295px;top: 65px;">
+                    <div class="background"></div>
+                    <div class="slogan"></div>
+                    <div class="text" id='text_01' style='background-image:url(assets/invt/tre/text_1.png);         height:306px; top: 308px;'></div>
+                    <div class="standard" id='standard_01'style='background-image:url(assets/invt/tre/standard_1.png); height:454px; top: 185px;'></div>
+                </div> 
                 <div class="menuItem"><img src="assets/menu/titleAriete.png"    width="489"     style="left: 360px;top: -96px;"></div>
                 <div class="menuItem"><img src="assets/menu/titleTorre.png"     width="509"     style="left: 315px;top: -253px;"></div>
                 <div class="menuItem"><img src="assets/menu/titleGarra.png"     width="545.5"   style="left: 315px;top: -299.5px;"></div>
@@ -73,6 +78,11 @@
         
         <script src="scripts/quo.js"></script>
         <script>
+            $$('body').ready(function() {
+                console.log('body is ready. Calling app.start()');
+                app.start();
+            });
+            
             var app = {
                 mainView: $$('#mainView'),
                 helpView: $$('#helpScreen'),
@@ -81,6 +91,8 @@
                 bg: $$('#backgroundAnimation')
             }
             app.menu = {
+                seqArray: new Array(),
+                rAF: 0,
                 itemsCache: 0,
                 titlesArray: $$('.menuItem'),
                 minititles: ['minititleIntro.png',
@@ -110,11 +122,26 @@
                 app.audio.state = s;
             }
             
+            app.start = function() {
+                // Iniciar o App. Essa será a base para chamar o loader. Por Enquanto deve apenas carregar a animação de BG do menu.
+                fragment = document.createDocumentFragment();
+                for (i=0; i<=300; i++){
+                    str = 'assets/menu/seq/A/' + addZeros(i,4) + '.png';
+                    elmt = $$(document.createElement('img'));
+                    elmt.attr('src', str);
+                    elmt.attr('width', '1024');
+                    $$(fragment).append(elmt);
+                    app.menu.seqArray[i] = elmt;
+                }
+                app.bg.append(fragment);
+                
+            }
+            
             app.menu.nextItem = function(e) { 
                 //Trazer próximo item da direita
                 if (app.menu.currentTitle != 10 ) {
                     app.menu.setaEsquerda.removeClass('leaveState');
-                    app.menu.nextBG();             
+                    app.menu.nextBG(app.menu.currentTitle + 1);             
                     
                     
                     app.menu.titlesArray[app.menu.currentTitle].style.webkitTransform = 'translateX(-1024px)';
@@ -127,28 +154,40 @@
                 
             }
             
-            app.menu.nextBG = function() {
-                seqArray[app.menu.currentBGFrame].removeClass('show');
-                ++ app.menu.currentBGFrame;
-                seqArray[app.menu.currentBGFrame].addClass('show');
-                if (app.menu.currentBGFrame % 30 != 0 ) {
-                    anim = window.requestAnimationFrame? requestAnimationFrame(app.menu.nextBG): webkitRequestAnimationFrame(app.menu.nextBG); // polyfill para funcionar no chrome e no ipad(que requer o vendor prefix antes da versão 7)
-                }
+            app.menu.nextBG = function(goto) {
+                window.cancelAnimationFrame? cancelAnimationFrame(app.menu.rAF): webkitCancelAnimationFrame(app.menu.rAF);
+                animLoop = function() {
+                console.log(goto * 30);
+                    
+                    if (app.menu.currentBGFrame  != goto * 30 ) {
+                    app.menu.seqArray[app.menu.currentBGFrame].removeClass('show');
+                    ++ app.menu.currentBGFrame;
+                    app.menu.seqArray[app.menu.currentBGFrame].addClass('show');
+                        app.menu.rAF = window.requestAnimationFrame? requestAnimationFrame(animLoop): webkitRequestAnimationFrame(animLoop); // polyfill para funcionar no chrome e no ipad(que requer o vendor prefix antes da versão 7)
+                    }
+                };
+                animLoop();
             }
-            var xx;
-            app.menu.previousBG = function() {
-                seqArray[app.menu.currentBGFrame].removeClass('show');
-                -- app.menu.currentBGFrame;
-                seqArray[app.menu.currentBGFrame].addClass('show');
-                if (app.menu.currentBGFrame % 30 != 0 ) {
-                    anim = window.requestAnimationFrame? requestAnimationFrame(app.menu.previousBG): webkitRequestAnimationFrame(app.menu.previousBG); // polyfill para funcionar no chrome e no ipad(que requer o vendor prefix antes da versão 7)
-                }
+            
+            app.menu.previousBG = function(goto) {
+                window.cancelAnimationFrame? cancelAnimationFrame(app.menu.rAF): webkitCancelAnimationFrame(app.menu.rAF);
+                animLoop = function() {
+                console.log(goto * 30);
+                    
+                    if (app.menu.currentBGFrame  != goto * 30 ) {
+                    app.menu.seqArray[app.menu.currentBGFrame].removeClass('show');
+                    -- app.menu.currentBGFrame;
+                    app.menu.seqArray[app.menu.currentBGFrame].addClass('show');
+                        app.menu.rAF = window.requestAnimationFrame? requestAnimationFrame(animLoop): webkitRequestAnimationFrame(animLoop); // polyfill para funcionar no chrome e no ipad(que requer o vendor prefix antes da versão 7)
+                    }
+                };
+                animLoop();
             }
             
             app.menu.previousItem = function() { 
                 //Trazer item anterior da esquerda
                 if (app.menu.currentTitle != 0 ) {
-                    app.menu.previousBG();             
+                    app.menu.previousBG(app.menu.currentTitle - 1);             
                     app.menu.setaDireita.removeClass('leaveState');
                     app.menu.titlesArray[app.menu.currentTitle].style.webkitTransform = 'translateX(1024px)';
                     app.menu.titlesArray[app.menu.currentTitle].style.opacity = '0';
@@ -160,7 +199,7 @@
             }
             
             app.menu.openContent = function(e) {
-
+        
                 invento = app.menu.currentTitle;
                 title = app.menu.titlesArray[app.menu.currentTitle];
                 $$('#BTNtitle').style('background-image', 'url(assets/menu/' + app.menu.minititles[app.menu.currentTitle] + ')');
@@ -184,10 +223,11 @@
                 setTimeout(function(){
                     $$('.menuItem').removeClass('hide');
                 }, 500);
-   
+           
             }
             
             app.menu.closeContent = function(e) {
+                $$('.menuItem').addClass('hide');
                 app.mainView.removeClass('contentMode');
                 app.navBar.removeClass('contentMode');
                 app.bg.removeClass('contentMode');
@@ -204,7 +244,7 @@
             }
             
             
-// Eventos do Menu -----------------
+        // Eventos do Menu -----------------
             
             app.menu.menuBar.on('swipeLeft', app.menu.nextItem);
             app.menu.menuBar.on('swipeRight', app.menu.previousItem);
@@ -215,8 +255,8 @@
             $$('.menuItem img').on('swipeUp',app.menu.openContent);
             $$('#tapToOpen').on('tap',app.menu.openContent);
             $$('#BTNback').on('tap',app.menu.closeContent);
-
-//Eventos da Barra de Navegação ------
+        
+        //Eventos da Barra de Navegação ------
             
             $$('#BTNinfo').tap( function() {
                 app.infoModal.show();
@@ -265,7 +305,7 @@
                 }
             });
             
-// Eventos da Ajuda ---------------
+        // Eventos da Ajuda ---------------
             
             app.helpView.on('tap', function() {
                 // ao tocar em qualquer parte da tela, fadeOut (transition) e depois display hidden
@@ -278,21 +318,8 @@
             
             function lockOverscroll(e) { e.preventDefault(); };
             
-//Animação do Menu - Primeiros Testes. Vou tentar utilizar o documentFragment para inserir as imagens no menu.
-            
-            fragment = document.createDocumentFragment();
-            var seqArray = new Array();
-            for (i=0; i<=300; i++){
-                str = 'assets/menu/seq/A/' + addZeros(i,4) + '.png';
-                elmt = $$(document.createElement('img'));
-                elmt.attr('src', str);
-                elmt.attr('width', '1024');
-                $$(fragment).append(elmt);
-                seqArray[i] = elmt;
-            }
-            app.bg.append(fragment);
-            
-            
+        
+        // Funções úteis. Nas versões finais, devem ser isoladas em outro arquivo js
             function addZeros(number, length) {
                 var num = '' + number;
                 while (num.length < length) {
