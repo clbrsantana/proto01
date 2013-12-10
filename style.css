@@ -61,10 +61,6 @@ div {
     top: 50px;
     width: 1024px;
     height:477px;
-    -webkit-transition: opacity .5s linear;
-    opacity: 1;
-    background-image:url(assets/menu/bg.png);
-    background-size:100%;
 }
 
 #backgroundAnimation.contentMode {
