@@ -25,7 +25,6 @@
     </head>
     
     <body>
-        <span id="log" style="font-size:20px;color:white; position:absolute; left:512px;top:10px;z-index:9999;">Log</span>
         
         <div id="helpScreen" style="display: none;"></div>
         <div id="infoModal" class='hidden'style="display: none;"><div class='closeBTN'></div></div>
@@ -109,13 +108,47 @@
         
         <script src="scripts/quo.js"></script>
         <script>
+            var RamHitBuffer = null;
+            // Fix up prefixing
+            window.AudioContext = window.AudioContext || window.webkitAudioContext;
+            var audioContext = new AudioContext();
+            
+            function loadSound(url) {
+              var request = new XMLHttpRequest();
+              request.open('GET', url, true);
+              request.responseType = 'arraybuffer';
+            
+              // Decode asynchronously
+              request.onload = function() {
+                console.log('received');
+                audioContext.decodeAudioData(request.response, function(buffer) {
+                  RamHitBuffer = buffer;
+                }, function() {console.log('error');});
+              }
+              request.send();
+            }
+            
+            function playSound(buffer) {
+              var source = audioContext.createBufferSource(); // creates a sound source
+              source.buffer = buffer;                    // tell the source which sound to play
+              source.connect(audioContext.destination);       // connect the source to the context's destination (the speakers)
+//              source.start(0);                           // play the source now
+              source.noteOn(0)                           // note: on older systems, may have to use deprecated noteOn(time);
+            }
+            
+            loadSound('assets/sound/RamHit.mp3');
             var shaker = {};
             shaker.container = $$('#iAction3_shaker');
             shaker.ram = $$('#ram');
             shaker.acceleration = 0;
             shaker.multiplier = 0.7;
-            shaker.clampLeft = -20;
-            shaker.clampRight = 100;
+            shaker.clampLeft = -50;
+            shaker.clampRight = 150;
+            shaker.wait = false;
+            
+            shaker.playHitSound = function() {
+                playSound(RamHitBuffer);
+            }
             
             window.addEventListener('devicemotion', function(e) {
                 shaker.acceleration = parseInt(e.acceleration.y * 10) ;
@@ -124,12 +157,19 @@
             
             function ramLoop() {
                 x = Math.floor(shaker.acceleration * shaker.multiplier);
-                x = x < shaker.clampLeft? shaker.clampLeft: x;
+                if ( x < shaker.clampLeft ){
+                    x = shaker.clampLeft;
+                    if (shaker.wait == false) { 
+                        shaker.playHitSound();
+                        shaker.wait = true;
+                        setTimeout(function() {shaker.wait= false;},100);
+                    }
+                }
                 x = x > shaker.clampRight? shaker.clampRight: x;
                 str = 'translate3D(Xpx, Ypx, 0)';
                 
                 str = str.replace('X', x);
-                str = str.replace('Y', Math.floor(-Math.abs(x*x)/100)); // Simular a trajetória circular do pêndulo. Na verdad, essa formula não resulta num círculo, mas numa parábola. Mas resolve de forma prática
+                str = str.replace('Y', Math.floor(-Math.abs(x*x)/200)); // Simular a trajetória circular do pêndulo. Na verdad, essa formula não resulta num círculo, mas numa parábola. Mas resolve de forma prática
                 
                 shaker.ram.style('-webkit-transform', str);
                 window.requestAnimationFrame? requestAnimationFrame(ramLoop): webkitRequestAnimationFrame(ramLoop);
@@ -333,6 +373,8 @@
             });
             var timer;
             $$('#BTNaudioControl').on('tap', function() {
+                console.log('cacete');
+                shaker.playHitSound();
                 btn = $$('#BTNaudioControl');
                 audioState = app.audio.state;
                 btn.addClass('tooltip');
