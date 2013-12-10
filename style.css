@@ -430,3 +430,16 @@ input {
     right: 40px;
     bottom: 30px;
 }
+
+#iAction3_shaker {
+    width: 1020px;
+    left: -30px;
+    top: 30px;
+}
+
+#iAction3_shaker img{
+    position:absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+}

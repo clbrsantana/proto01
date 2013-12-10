@@ -25,6 +25,7 @@
     </head>
     
     <body>
+        <span id="log" style="font-size:20px;color:white; position:absolute; left:512px;top:10px;z-index:9999;">Log</span>
         
         <div id="helpScreen" style="display: none;"></div>
         <div id="infoModal" class='hidden'style="display: none;"><div class='closeBTN'></div></div>
@@ -69,7 +70,16 @@
                     </div>
                     <div class="text" style='background-image:url(assets/invt/ari/text_3.png);         height:498px; top: 2960px;'></div>
                     <div class="standard" style='background-image:url(assets/invt/ari/standard_3.png); height:549px; top: 2929px;'></div>
-                    <div class="iAction" style='background-image:url(assets/invt/ari/iaction.png);     top: 3513px; height:602px'></div>
+                    <div class="iAction" style='background-image:url(assets/invt/ari/iaction.png);     top: 3513px; height:602px'>
+                        
+                        <div id='iAction3_shaker'>
+                            <img src="assets/invt/ari/iaction_sideviewBack.png">
+                            <img src="assets/invt/ari/iaction_sideviewLog.png" id='ram' style='-webkit-transition:-webkit-transform .1s ease'>
+                            <img src="assets/invt/ari/iaction_sideviewRopes.png">
+                            <img src="assets/invt/ari/iaction_sideviewFront.png">
+                        </div>
+                        
+                    </div>
                     <div class="endLine"></div>
                 </div>
                 <div class="menuItem"><img src="assets/menu/titleTorre.png"     width="509"     style="left: 315px;top: -253px;"></div>
@@ -98,6 +108,34 @@
         </div>
         
         <script src="scripts/quo.js"></script>
+        <script>
+            var shaker = {};
+            shaker.container = $$('#iAction3_shaker');
+            shaker.ram = $$('#ram');
+            shaker.acceleration = 0;
+            shaker.multiplier = 0.7;
+            shaker.clampLeft = -20;
+            shaker.clampRight = 100;
+            
+            window.addEventListener('devicemotion', function(e) {
+                shaker.acceleration = parseInt(e.acceleration.y * 10) ;
+            });
+            log = $$('#log');
+            
+            function ramLoop() {
+                x = Math.floor(shaker.acceleration * shaker.multiplier);
+                x = x < shaker.clampLeft? shaker.clampLeft: x;
+                x = x > shaker.clampRight? shaker.clampRight: x;
+                str = 'translate3D(Xpx, Ypx, 0)';
+                
+                str = str.replace('X', x);
+                str = str.replace('Y', Math.floor(-Math.abs(x*x)/100)); // Simular a trajetória circular do pêndulo. Na verdad, essa formula não resulta num círculo, mas numa parábola. Mas resolve de forma prática
+                
+                shaker.ram.style('-webkit-transform', str);
+                window.requestAnimationFrame? requestAnimationFrame(ramLoop): webkitRequestAnimationFrame(ramLoop);
+            }
+            
+        </script>
         <script>
             $$('body').ready(function() {
                 console.log('body is ready. Calling app.start()');
