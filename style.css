@@ -110,7 +110,6 @@ div {
     top:0;
     height:220px;
     z-index: 5;
-    pointer-events: none;
     -webkit-transform:translateX(1024px);
     -webkit-backface-visibility: hidden; /* Tentativa de acabar com os elementos "piscantes". Funcionou MAGICAMENTE XD */
     -webkit-transition: -webkit-transform .5s cubic-bezier(0.215, 0.610, 0.355, 1.000),
@@ -302,11 +301,11 @@ div {
 .menuItem .background {
     width: 100px;
     left: 90px;
-    height:300px;
+    height:5000px;
     bottom:0;
     top: 0;
     background-color: rgb(243,240,226);
-    -webkit-transition:height 0.4s ease-out;
+    -webkit-transition:height 3s ease-out;
 }
 .menuItem .slogan {
     background-image:url(assets/invt/tre/slogan.png);
@@ -334,20 +333,40 @@ div {
     -webkit-transition: height .4s ease-out .2s;
 }
 
+.menuItem .mech {
+    width: 127px;
+    height: 37px;
+    background-size: 100%;
+    left: 70px;
+    -webkit-transition: -webkit-transform .4s ease-out .4s,
+                        opacity .4s linear .4s;
+    opacity:1;
+}
+
+.menuItem .mech:hover {
+    opacity:.5;
+    -webkit-transition:none;
+}
+
 .menuItem .iAction {
     background-image:url(assets/invt/tre/iaction_1.png);
     background-size: 100%;
     width: 1024px;
+    height: 615px;
     left: 0px;
+    
 }
 
 .menuItem .endLine {
-    background-image:url(assets/invt/tre/endLine.png);
     background-size: 100%;
     width: 1024px;
-    height: 9px;
+    height: 40px;
     bottom: 0;
     left: 0px;
+    border-top: 6px dashed rgb(44,42,28);
+    background-clip: padding-box;
+    background-color: rgb(44,42,28);
+    
 }
 
 .menuItem.hide .background {
@@ -359,14 +378,21 @@ div {
     opacity:0;
 }
 
-.menuItem.hide #text_01 {
+.menuItem.hide .mech {
+    -webkit-transform:translateX(-40px);
+    opacity:0;
+}
+
+.menuItem.hide .text {
     -webkit-transform:translateX(40px);
     opacity:0;
 }
 
-.menuItem.hide #standard_01 {
+.menuItem.hide .standard {
     height:0 !important;
 }
+
+
 
 
 #backgroundAnimation img {
@@ -376,4 +402,31 @@ div {
 
 #backgroundAnimation img.show {
     display: block;
+}
+input {
+    
+}
+
+.iAction input[type='radio'] {
+    top:100px;
+    left: 0;
+    margin:0 15px;
+    -webkit-appearance:none;
+    background-color: rgba(0,0,0,0);
+    border:none;
+    width: 20px;
+    height: 20px;
+    background-image:url(assets/invt/radioBTNoff.png);
+    background-size:100%;
+}
+
+.iAction input[type='radio']:checked {
+    background-image:url(assets/invt/radioBTNon.png);
+    background-color: rgba(0,0,0,0);
+}
+
+
+.iAction .BTNgroup {
+    right: 40px;
+    bottom: 30px;
 }
