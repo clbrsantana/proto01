@@ -316,6 +316,7 @@ div {
 .menuItem .text {
     background-image:url(assets/invt/tre/text_1.png);
     background-size: 100%;
+    background-repeat:no-repeat;
     width: 601px;
     left: 278px;
     -webkit-transition: -webkit-transform .4s ease-out .2s,
@@ -364,6 +365,7 @@ div {
     background-color: rgb(44,42,28);
     
 }
+
 
 .menuItem.hide .background {
     height:0;
@@ -423,19 +425,95 @@ input {
 
 
 .iAction .BTNgroup {
-    right: 40px;
-    bottom: 30px;
+    right: 110px;
+    bottom: 27px;
 }
 
 #iAction3_shaker {
-    width: 1020px;
+    overflow:hidden;
+    width: 1051px;
+    height: 577px;
     left: -30px;
-    top: 30px;
+    top: 10px;
 }
 
 #iAction3_shaker img{
     position:absolute;
-    width: 100%;
-    left: 0;
-    top: 0;
+}
+.iastandard div {
+    background-size: 100%;
+    width: 253px;
+    left: 58px;
+    background-repeat:no-repeat;
+}
+/** Primeiro STATE **/
+.Ariete .iAction.two[data-state='1'] .iastandard div:nth-child(1),
+.Ariete .iAction.two[data-state='1'] .iastandard div:nth-child(2) {
+    opacity:1;
+    -webkit-transform: translateX(0);
+}
+.Ariete .iAction.two[data-state='1'] .iastandard div:nth-child(3),
+.Ariete .iAction.two[data-state='1'] .iastandard div:nth-child(4),
+.Ariete .iAction.two[data-state='1'] .iastandard div:nth-child(5),
+.Ariete .iAction.two[data-state='1'] .iastandard div:nth-child(6){
+    opacity:0;
+    -webkit-transform:translateX(400px);
+}
+
+
+/** Segundo STATE **/
+.Ariete .iAction.two[data-state='2'] .iastandard div:nth-child(3),
+.Ariete .iAction.two[data-state='2'] .iastandard div:nth-child(4) {
+    opacity:1;
+    -webkit-transform: translateX(0);
+}
+.Ariete .iAction.two[data-state='2'] .iastandard div:nth-child(1),
+.Ariete .iAction.two[data-state='2'] .iastandard div:nth-child(2){
+    opacity:0;
+    -webkit-transform:translateX(-400px);
+}
+
+.Ariete .iAction.two[data-state='2'] .iastandard div:nth-child(5),
+.Ariete .iAction.two[data-state='2'] .iastandard div:nth-child(6){
+    opacity:0;
+    -webkit-transform:translateX(400px);
+}
+
+
+
+/** Terceiro STATE **/
+.Ariete .iAction.two[data-state='3'] .iastandard div:nth-child(5),
+.Ariete .iAction.two[data-state='3'] .iastandard div:nth-child(6) {
+    opacity:1;
+    -webkit-transform: translateX(0);
+}
+.Ariete .iAction.two[data-state='3'] .iastandard div:nth-child(1),
+.Ariete .iAction.two[data-state='3'] .iastandard div:nth-child(2),
+.Ariete .iAction.two[data-state='3'] .iastandard div:nth-child(3),
+.Ariete .iAction.two[data-state='3'] .iastandard div:nth-child(4){
+    opacity:0;
+    -webkit-transform:translateX(-400px);
+}
+
+.iastandard_title{
+    top: 42px;
+    opacity:1;
+    -webkit-transform:translateX(0);
+    -webkit-transition: -webkit-transform .2s,
+                        opacity .2s;
+}
+
+.iastandard_text {
+    height:283px;
+    opacity:1;
+    -webkit-transform:translateX(0);
+    -webkit-transition: -webkit-transform .2s,
+                        opacity .2s;
+}
+
+.iastandard {
+    background-size:100%;
+    right:0;
+    top: 46px;
+    overflow:hidden;
 }

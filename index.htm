@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html manifest="manifest.appcache">
+<html manifest="">
 
     <head>
         <title>Inventos MGM</title>
@@ -39,43 +39,96 @@
         
         <img id="backgroundAnimation" width="1024"></div>
         <div id="mainView">
+            
+            <div id="menuItemsBar">
+                <div class="menuItem Intro hide" style="-webkit-transform: translateX(0);"><img src="assets/menu/titleIntro.png"     width="618"     style="left: 295px;top: 65px;">
+                </div> 
+                <div class="menuItem Ariete hide" style='height:4161px;'><img src="assets/menu/titleAriete.png"    width="489"     style="left: 360px;top: -96px;">
+
+                                        
+                    <div class="background" style='max-height:4160px;'></div>
+                    <div class="slogan" style="background-image:url(assets/invt/ari/slogan.png)"></div>
+                    <div class="text"  style='background-image:url(assets/invt/ari/text_1.png);         height:386px; top: 308px;'></div>
+                    <div class="standard" style='background-image:url(assets/invt/ari/standard_1.png); height:311px; top: 185px;'></div>
+                    <div class="mech" style='background-image:url(assets/invt/ari/mech_1.png);         top: 406px;'></div>
+                    <div class="iAction one" style='background-image:url(assets/invt/ari/iaction.png);     top: 742px;'>
+                    </div>
+                    <div class="text" style='background-image:url(assets/invt/ari/text_2.png);         height:508px; top: 1581px;'></div>
+                    <div class="standard" style='background-image:url(assets/invt/ari/standard_2.png);   height:570px; top: 1544px;'></div>
+                    <div class="iAction two" data-state='1' style='background-image:url(assets/invt/ari/iaction.png);     top: 2150px;'>
+                        <div class='iastandard' style='background-image:url(assets/invt/iaction_Vstandard.png); width:377px;height:496px;'>
+                            <div class="iastandard_title" style='background-image:url(assets/invt/ari/iaction2_title1.png); height:107px;' ></div>
+                            <div class="iastandard_text" style='background-image:url(assets/invt/ari/iaction2_text1.png); top:152px;'></div>
+                            <div class="iastandard_title hideRight" style='background-image:url(assets/invt/ari/iaction2_title2.png); height:107px;' ></div>
+                            <div class="iastandard_text hideRight" style='background-image:url(assets/invt/ari/iaction2_text2.png); top:152px;'></div>
+                            <div class="iastandard_title hideRight" style='background-image:url(assets/invt/ari/iaction2_title3.png); height:60px;' ></div>
+                            <div class="iastandard_text hideRight" style='background-image:url(assets/invt/ari/iaction2_text3.png); top:118px;'></div>
+                        </div>
+                        
+                        <div class='BTNgroup' >
+                            <input type="radio" name='Ariete_iaction2' data-state=1 checked>
+                            <input type="radio" name='Ariete_iaction2' data-state=2>
+                            <input type="radio" name='Ariete_iaction2' data-state=3>
+                        </div>
+                    </div>
+                    <div class="text" style='background-image:url(assets/invt/ari/text_3.png);         height:498px; top: 2960px;'></div>
+                    <div class="standard" style='background-image:url(assets/invt/ari/standard_3.png); height:549px; top: 2929px;'></div>
+                    <div class="iAction three" style='background-image:url(assets/invt/ari/iaction.png);     top: 3513px; height:602px'>
+                        
+                        <div id="iAction3_shaker">
+                            <img src="assets/invt/ari/iaction_sideviewBack.png" width="1048.8" style="left: 40px;top: 180px;">
+                            <img src="assets/invt/ari/iaction_sideviewTarget.png" width="368.4" style="left: 33px;top: 264px;">
+                            <img src="assets/invt/ari/iaction_sideviewLog.png" width="655.2" style="left: 337px; top: 336px; transition: -webkit-transform 0.1s ease; -webkit-transition: -webkit-transform 0.1s ease; -webkit-transform: translate3d(0px, 0px, 0);" id="ram">
+                            <img src="assets/invt/ari/iaction_sideviewFront.png" width="524.4" style="left: 419px;top: 189px;">
+                            <img src="assets/invt/ari/iaction_sideviewTotal.png" width="694.8" style="left: 406px;top: 180px;opacity:.5;">
+                        </div>
+                            <img src="assets/invt/ari/iaction3_standard1.png" width='610.5'style="right:0;top:80px;position:absolute;">
+                        
+                    </div>
+                    <div class="endLine"></div>
+                    
+                    
+                    
+                </div>
+                <div class="menuItem Torre"><img src="assets/menu/titleTorre.png"     width="509"     style="left: 315px;top: -253px;"></div>
+                <div class="menuItem Garra"><img src="assets/menu/titleGarra.png"     width="545.5"   style="left: 315px;top: -299.5px;"></div>
+                <div class="menuItem Onagro"><img src="assets/menu/titleOnagro.png"    width="495.5"   style="left: 345px;top: -92px;"></div>
+                <div class="menuItem Ballista"><img src="assets/menu/titleBallista.png"  width="423"     style="left: 345px;top: -133px;"></div>
+                <div class="menuItem Scorpio"><img src="assets/menu/titleScorpio.png"   width="378.5"   style="left: 360px;top: -78.5px;"></div>
+                <div class="menuItem Trebuchet hide" style='height:4060px;'><img src="assets/menu/titleTrebuchet.png" width="557.5"   style="left: 320px;top: -166px; ">
+                </div>
+                <div class="menuItem Fogo"><img src="assets/menu/titleFogo.png"      width="536"     style="left: 315px;top: -84px;"></div>
+                <div class="menuItem Bombarda"><img src="assets/menu/titleBombarda.png"  width="491"     style="left: 315px;top: -113px;"></div>
+                <div class="menuItem Tanque"><img src="assets/menu/titleTanque.png"    width="545.5"   style="left: 315px;top: -107px;"></div>
+            </div>
             <div id="setaEsquerda" class="leaveState"></div>
             <div id="setaDireita"></div>
             <img src="assets/menu/toque.png" id="tapToOpen" width="187.5" >
-            
-            <div id="menuItemsBar">
-                <div class="menuItem hide" style="-webkit-transform: translateX(0);"><img src="assets/menu/titleIntro.png"     width="618"     style="left: 295px;top: 65px;">
-                </div> 
-                <div class="menuItem hide" style='height:4161px;'><img src="assets/menu/titleAriete.png"    width="489"     style="left: 360px;top: -96px;">
-                </div>
-                <div class="menuItem"><img src="assets/menu/titleTorre.png"     width="509"     style="left: 315px;top: -253px;"></div>
-                <div class="menuItem"><img src="assets/menu/titleGarra.png"     width="545.5"   style="left: 315px;top: -299.5px;"></div>
-                <div class="menuItem"><img src="assets/menu/titleOnagro.png"    width="495.5"   style="left: 345px;top: -92px;"></div>
-                <div class="menuItem"><img src="assets/menu/titleBallista.png"  width="423"     style="left: 345px;top: -133px;"></div>
-                <div class="menuItem"><img src="assets/menu/titleScorpio.png"   width="378.5"   style="left: 360px;top: -78.5px;"></div>
-                <div class="menuItem hide" style='height:4060px;'><img src="assets/menu/titleTrebuchet.png" width="557.5"   style="left: 320px;top: -166px; ">
-                </div>
-                <div class="menuItem"><img src="assets/menu/titleFogo.png"      width="536"     style="left: 315px;top: -84px;"></div>
-                <div class="menuItem"><img src="assets/menu/titleBombarda.png"  width="491"     style="left: 315px;top: -113px;"></div>
-                <div class="menuItem"><img src="assets/menu/titleTanque.png"    width="545.5"   style="left: 315px;top: -107px;"></div>
-            </div>
         </div>
         
         <script src="scripts/quo.js"></script>
+
         <script>
+    
             $$('body').ready(function() {
                 console.log('body is ready. Calling app.start()');
                 app.start();
             });
             
             var app = {
+                state: 'menu',
+                invt: {
+                    ariete: {}
+                },
                 mainView: $$('#mainView'),
                 helpView: $$('#helpScreen'),
                 navBar: $$('#navbar'),
                 infoModal: $$('#infoModal'),
                 bg: $$('#backgroundAnimation'),
                 images: [],
+                audio: {}
             }
+            
             app.menu = {
                 seqArray: new Array(),
                 rAF: 0,
@@ -98,15 +151,94 @@
                 currentBGFrame: 0,
                 menuBar: $$('#menuItemsBar')
                 
-            };
+            }
             
             app.audio = {
-                state:0 //0=play all, 1=OnlyFX, 2=mute
+                state: 0,
+                setState: function(s) {
+                    app.audio.state = s;
+                    switch (s){
+                        case 0:
+                            app.audio.musicNode.gain.value = 1;
+                            app.audio.fxNode.gain.value = 1;
+                        break
+                        case 1:
+                            app.audio.musicNode.gain.value = 0;
+                            app.audio.fxNode.gain.value = 1;
+                        break
+                        case 2:
+                            app.audio.musicNode.gain.value = 0;
+                            app.audio.fxNode.gain.value = 0;
+                        break
+                        
+                    }
+                },
+                assets: {}
             }
             
-            app.audio.setState = function(s) {
-                app.audio.state = s;
+
+// Implementando o sistema de áudio em Web Audio API ---------------
+            var source;
+            window.AudioContext = window.AudioContext || window.webkitAudioContext;
+            app.audio.ctx = new AudioContext();
+            app.audio.musicNode = app.audio.ctx.createGainNode();
+            app.audio.fxNode = app.audio.ctx.createGainNode();
+            
+            app.audio.musicNode.connect(app.audio.ctx.destination);
+            app.audio.fxNode.connect(app.audio.ctx.destination);
+            
+            app.audio.loadSound = function (url, callback) {
+              var request = new XMLHttpRequest();
+              request.open('GET', url, true);
+              request.responseType = 'arraybuffer';
+            
+              // Decode asynchronously
+              request.onload = function() {
+                app.audio.ctx.decodeAudioData(request.response, function(buffer) {
+                  callback(buffer);
+                }, function() {console.log('Error on audio decoding');});
+              }
+              request.send();
             }
+            
+            app.audio.playSound = function (buffer, node, fade) {
+              source = app.audio.ctx.createBufferSource(); // creates a sound source
+              source.buffer = buffer;                    // tell the source which sound to play
+              source.connect(node);
+            //  source.start(0);                           // play the source now
+              source.noteOn(0);
+              if (fade) { 
+                  source.gain.value = 0;
+                  loop();
+                  function loop(){
+                      source.gain.value += 0.05;
+                      if (source.gain.value <1 ) {setTimeout(loop, 100);}
+                  }
+              }
+              
+              return source                           // note: on older systems, may have to use deprecated noteOn(time);
+            }
+            
+            app.audio.stopSound = function (src, fade){
+                if (fade == true) {
+                    loop();
+                    function loop(){
+                        console.log('entered loop');
+                        src.gain.value -= 0.05;
+                        if (src.gain.value > 0 ) {setTimeout(loop, 100);}
+                        else {
+                            src.noteOff(0);
+                            src = null;
+                        }
+                    }
+                } 
+                
+                else {
+                    src.noteOff(0);
+                    src = null;
+                }
+            } 
+
             
             app.start = function() {
                 // Iniciar o App. Essa será a base para chamar o loader. Por Enquanto deve apenas carregar a animação de BG do menu.
@@ -117,11 +249,14 @@
                     app.images[i] = str;
                 }
                 
+                app.bg.attr('src', 'assets/menu/seq/A/0000.png' )
+                
             }
             
             
             
-            app.menu.nextItem = function(e) { 
+            app.menu.nextItem = function(e) {
+                app.audio.playSound(app.audio.assets.tap, app.audio.fxNode, false); 
                 //Trazer próximo item da direita
                 if (app.menu.currentTitle != 10 ) {
                     app.menu.setaEsquerda.removeClass('leaveState');
@@ -163,6 +298,7 @@
             }
             
             app.menu.previousItem = function() { 
+                app.audio.playSound(app.audio.assets.tap, app.audio.fxNode, false);
                 //Trazer item anterior da esquerda
                 if (app.menu.currentTitle != 0 ) {
                     app.menu.previousBG(app.menu.currentTitle - 1);             
@@ -173,15 +309,26 @@
                     if (app.menu.currentTitle == 0) {app.menu.setaEsquerda.addClass('leaveState');}
                 }
             }
-            
+            var invtSong;
             app.menu.openContent = function(e) {
+                app.audio.playSound(app.audio.assets.tap, app.audio.fxNode, false);
         
+                app.state = 'content';
                 invento = app.menu.currentTitle;
+                if (invento == 1) { app.invt.ariete.start(); }
+                
                 title = app.menu.titlesArray[app.menu.currentTitle];
                 $$('#BTNtitle').style('background-image', 'url(assets/menu/' + app.menu.minititles[app.menu.currentTitle] + ')');
                 app.mainView.addClass('contentMode');
                 app.navBar.addClass('contentMode');
                 app.bg.addClass('contentMode');
+                
+                app.audio.stopSound(menuSong, true); // Parar música do menu
+                setTimeout(function(){
+                    invtSong = app.audio.playSound(app.audio.assets.invtSong, app.audio.musicNode,true); // Iniciar música do invento
+                    invtSong.looping = true;
+                    invtSong.loop = true;
+                }, 2000);
             
                 
                 $$('.menuItem img').off("tap", app.menu.openContent); // Remover os Listeners do Menu
@@ -190,6 +337,7 @@
                 app.menu.menuBar.off('swipeRight', app.menu.previousItem);
                 app.menu.setaDireita.off("tap", app.menu.nextItem);
                 app.menu.setaEsquerda.off("tap", app.menu.previousItem);
+                $$('.menuItem img').off('swipeUp',app.menu.openContent);
                 
                 document.removeEventListener('touchmove', lockOverscroll, true) // Remover o listener que bloqueia o scroll no app
                 
@@ -203,11 +351,20 @@
             }
             
             app.menu.closeContent = function(e) {
+                app.audio.playSound(app.audio.assets.tap, app.audio.fxNode, false);
+                app.mainView.scrollTop = 0;
+                
+                app.state = 'menu';
                 $$('.menuItem').addClass('hide');
                 app.mainView.removeClass('contentMode');
                 app.navBar.removeClass('contentMode');
                 app.bg.removeClass('contentMode');
                 app.menu.menuBar.append(app.menu.itemsCache);
+                
+                app.audio.stopSound(invtSong, true); // Parar música do menu
+                menuSong = app.audio.playSound(app.audio.assets.menuSong, app.audio.musicNode,true); // Iniciar música do invento
+                menuSong.looping = true;
+                menuSong.loop = true;
                 
                 $$('.menuItem img').on("tap", app.menu.openContent); // Redefinir os Listeners do Menu 
                 $$('#tapToOpen').on("tap", app.menu.openContent);
@@ -215,12 +372,13 @@
                 app.menu.menuBar.on('swipeRight', app.menu.previousItem);
                 app.menu.setaDireita.on('tap', app.menu.nextItem);
                 app.menu.setaEsquerda.on('tap', app.menu.previousItem);
+                $$('.menuItem img').on('swipeUp',app.menu.openContent);
                 
                 document.addEventListener('touchmove', lockOverscroll, true); // Redefinir o listener que bloqueia o overscroll
             }
             
             
-        // Eventos do Menu -----------------
+// Eventos do Menu -----------------
             
             app.menu.menuBar.on('swipeLeft', app.menu.nextItem);
             app.menu.menuBar.on('swipeRight', app.menu.previousItem);
@@ -232,9 +390,10 @@
             $$('#tapToOpen').on('tap',app.menu.openContent);
             $$('#BTNback').on('tap',app.menu.closeContent);
         
-        //Eventos da Barra de Navegação ------
+//Eventos da Barra de Navegação ------
             
             $$('#BTNinfo').tap( function() {
+                app.audio.playSound(app.audio.assets.tap, app.audio.fxNode, false);
                 app.infoModal.show();
                 setTimeout(function() {app.infoModal.removeClass('hidden');}, 50);
                 
@@ -245,13 +404,13 @@
             });
                        
             $$('#BTNhelp').on('tap', function() {
+                app.audio.playSound(app.audio.assets.tap, app.audio.fxNode, false);
                 app.helpView.show();
                 setTimeout( function() {app.helpView.style('opacity', '1')}, 50 );
             });
             var timer;
             $$('#BTNaudioControl').on('tap', function() {
-                console.log('cacete');
-                shaker.playHitSound();
+                
                 btn = $$('#BTNaudioControl');
                 audioState = app.audio.state;
                 btn.addClass('tooltip');
@@ -281,14 +440,17 @@
                         app.audio.setState(0);
                         break;
                 }
+                app.audio.playSound(app.audio.assets.tap, app.audio.fxNode, false);
             });
             
-        // Eventos da Ajuda ---------------
+// Eventos da Ajuda ---------------
             
             app.helpView.on('tap', function() {
+                app.audio.playSound(app.audio.assets.tap, app.audio.fxNode, false);
                 // ao tocar em qualquer parte da tela, fadeOut (transition) e depois display hidden
                 app.helpView.style('opacity', '0');
                 setTimeout( function() {app.helpView.hide();}, 500);
+                
             });
             
             //Tentativa de bloquear o overscroll/scroll elástico. Funciona, mas bloqueia todo o scroll no app. Nos momentos em que o scroll é necessário, remover o listener
@@ -297,7 +459,7 @@
             function lockOverscroll(e) { e.preventDefault(); };
             
         
-        // Funções úteis. Nas versões finais, devem ser isoladas em outro arquivo js
+// Funções úteis. Nas versões finais, devem ser isoladas em outro arquivo js
             function addZeros(number, length) {
                 var num = '' + number;
                 while (num.length < length) {
@@ -305,7 +467,104 @@
                 }
                 return num;
             }
+            var tapSound;
+            app.audio.loadSound('assets/sound/RamHit.mp3', function(sound) {app.audio.assets.ramHitSound = sound;});
+            app.audio.loadSound('assets/sound/Hit.mp3', function(sound) {
+                        app.audio.assets.tap = sound;
+                        tapSound = app.audio.playSound(app.audio.assets.tap, app.audio.fxNode, false);
+            });
+                        
+            var menuSong;
+            app.audio.loadSound('assets/sound/menuSong.mp3', function(sound) {
+                app.audio.assets.menuSong = sound;
+                if(app.state == 'menu') {
+                    menuSong = app.audio.playSound(app.audio.assets.menuSong, app.audio.musicNode, true);
+                    menuSong.loop = true;
+                    menuSong.looping = true;
+                
+                };
+            });
             
-        </script>
+            app.audio.loadSound('assets/sound/invtSong.mp3', function(sound) {
+                app.audio.assets.invtSong = sound;
+            });
+            
+
+// Inventos ----------------------
+// a partir daqui são definidas as funções específicas a cada invento do app.
+
+            
+// ARÍETE ---
+            
+            app.invt.ariete = {
+                iAction1: {},
+                iAction2: {
+                    container: $$('.Ariete .iAction.two'),
+                    controller: $$('.Ariete .iAction.two .BTNgroup'),
+                }, 
+                iAction3: {
+                    container: $$('#iAction3_shaker'),
+                    ram: $$('#ram'),
+                    acceleration: 0,
+                    multiplier: 0.7,
+                    clampLeft: -50,
+                    clampRight: 150,
+                    wait: false
+                },
+            }
+            
+            app.invt.ariete.start = function() {
+                var ramLoopAF;
+                var isInIaction = 0;
+                // Events Listeners
+                $$('.Ariete .iAction.two .BTNgroup input').on('tap', function(){
+                    state = $$(this).data('state');
+                    app.invt.ariete.iAction2.changeState(state);
+                });
+                
+
+                
+                // Interação 2
+                                
+                this.iAction2.changeState = function(state){
+                    app.invt.ariete.iAction2.container.data('state', state.toString());
+                }
+                            
+                // Interação 3
+                shaker = app.invt.ariete.iAction3;
+                shaker.playHitSound = function() {
+                    app.audio.playSound(app.audio.assets.ramHitSound, app.audio.fxNode, false);
+                }
+                
+                window.addEventListener('devicemotion', function(e) {
+                    shaker.acceleration = parseInt(e.acceleration.y * 10) ;
+                });
+                                
+                function ramLoop() { // Loop de animação da interação três, onde o usuário controla o invento movimentando o IPad
+                    
+                    x = Math.floor(shaker.acceleration * shaker.multiplier);
+                    if ( x < shaker.clampLeft ){
+                        x = shaker.clampLeft;
+                        if (shaker.wait == false) { 
+                            shaker.playHitSound();
+                            shaker.wait = true;
+                            setTimeout(function() {shaker.wait= false;},100);
+                        }
+                    }
+                    x = x > shaker.clampRight? shaker.clampRight: x;
+                    str = 'translate3D(Xpx, Ypx, 0)';
+                    
+                    str = str.replace('X', x);
+                    str = str.replace('Y', Math.floor(-Math.abs(x*x)/200)); // Simular a trajetória circular do pêndulo. Na verdade, essa formula não resulta num círculo, mas numa parábola. Mas resolve de forma prática
+                    
+                    shaker.ram.style('-webkit-transform', str);
+                    ramLoopAF = window.requestAnimationFrame? requestAnimationFrame(ramLoop): webkitRequestAnimationFrame(ramLoop);
+                }
+                
+                ramLoop();
+            
+            }
+            
+            </script>
     </body>
 </html>
