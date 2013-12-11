@@ -273,7 +273,7 @@ div {
     -webkit-transition: -webkit-transform .5s cubic-bezier(.21, .61, .61, 1);
 }
 
-#infoModal .closeBTN {
+.closeBTN {
     position:absolute;
     background-image:url(assets/closeBTN.png);
     background-size: 20px 20px;
@@ -284,6 +284,11 @@ div {
     top: 115px;
     right: 117px;
     padding:10px;
+}
+
+.modalwindow .closeBTN{
+    right: 3px;
+    top: 5px;
 }
 
 .closeBTN:hover {
@@ -517,3 +522,32 @@ input {
     top: 46px;
     overflow:hidden;
 }
+
+.modalwindow {
+    position:fixed;
+    z-index:90;
+    background-size:100%;
+    background-image:url(assets/invt/ari/modalBG.png);
+    width: 895px;
+    height: 650.5px;
+    left: 64px;
+    top: 130px;
+    -webkit-transition: .5s -webkit-transform;
+}
+
+.modalwindow.hidden {
+    -webkit-transform: translate3d(-2048px,0,0) scaleX(1.3);
+}
+
+.figure {
+    position:absolute;
+    left: 1px;
+    top: 1px;
+}
+
+.modaltext {
+    position:absolute;
+    left: 507px;
+    top: 303px;
+}
+

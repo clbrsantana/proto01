@@ -27,17 +27,27 @@
     <body>
         
         <div id="helpScreen" style="display: none;"></div>
-        <div id="infoModal" class='hidden'style="display: none;"><div class='closeBTN'></div></div>
+        <div id="infoModal" class='hidden' style="display: none;"><div class='closeBTN'></div></div>
         <div id="navbar">
             <div id="BTNback"></div>
             <div id="BTNtitle"></div>
-            <div id="BTN3d"></div>
             <div id="BTNaudioControl"></div>
             <div id="BTNhelp"></div>
             <div id="BTNinfo"></div>
         </div>
         
         <img id="backgroundAnimation" width="1024"></div>
+                    <div class='modalwindow hidden' id='penduloModal'><div class='closeBTN'></div>
+                        <img src="assets/invt/ari/mechModal.png" width='347' style='left:500px; top:54px;position:absolute'>
+                    </div> 
+                    <div class='modalwindow hidden' id='Modal2'><div class='closeBTN'></div>
+                        <img class='figure' src="assets/invt/ari/modal2_picture.png" width='446.5'>
+                        <img class='modaltext' src="assets/invt/ari/modal2_text.png" width='276'>
+                    </div> 
+                    <div class='modalwindow hidden' id='Modal3'><div class='closeBTN'></div>
+                        <img class='figure' src="assets/invt/ari/modal3_picture.png" width='446.5'>
+                        <img class='modaltext' src="assets/invt/ari/modal3_text.png" width='276'>
+                    </div> 
         <div id="mainView">
             
             <div id="menuItemsBar">
@@ -45,7 +55,6 @@
                 </div> 
                 <div class="menuItem Ariete hide" style='height:4161px;'><img src="assets/menu/titleAriete.png"    width="489"     style="left: 360px;top: -96px;">
 
-                                        
                     <div class="background" style='max-height:4160px;'></div>
                     <div class="slogan" style="background-image:url(assets/invt/ari/slogan.png)"></div>
                     <div class="text"  style='background-image:url(assets/invt/ari/text_1.png);         height:386px; top: 308px;'></div>
@@ -242,11 +251,11 @@
             
             app.start = function() {
                 // Iniciar o App. Essa será a base para chamar o loader. Por Enquanto deve apenas carregar a animação de BG do menu.
-                for (i=0; i<=300; i++){
+                for (i=0; i<=300; i+=2){
                     str = 'assets/menu/seq/A/' + addZeros(i,4) + '.png';
                     imgTemp = new Image();
                     imgTemp.src = str;
-                    app.images[i] = str;
+                    app.images[i/2] = str;
                 }
                 
                 app.bg.attr('src', 'assets/menu/seq/A/0000.png' )
@@ -256,7 +265,6 @@
             
             
             app.menu.nextItem = function(e) {
-                app.audio.playSound(app.audio.assets.tap, app.audio.fxNode, false); 
                 //Trazer próximo item da direita
                 if (app.menu.currentTitle != 10 ) {
                     app.menu.setaEsquerda.removeClass('leaveState');
@@ -275,7 +283,7 @@
                 window.cancelAnimationFrame? cancelAnimationFrame(app.menu.rAF): webkitCancelAnimationFrame(app.menu.rAF);
                 animLoop = function() {
                     
-                    if (app.menu.currentBGFrame  != goto * 30 ) {
+                    if (app.menu.currentBGFrame  != goto * 15 ) {
                         ++ app.menu.currentBGFrame;
                         app.bg.attr('src', app.images[app.menu.currentBGFrame]);
                         app.menu.rAF = window.requestAnimationFrame? requestAnimationFrame(animLoop): webkitRequestAnimationFrame(animLoop); // polyfill para funcionar no chrome e no ipad(que requer o vendor prefix antes da versão 7)
@@ -288,7 +296,7 @@
                 window.cancelAnimationFrame? cancelAnimationFrame(app.menu.rAF): webkitCancelAnimationFrame(app.menu.rAF);
                 animLoop = function() {
                     
-                    if (app.menu.currentBGFrame  != goto * 30 ) {
+                    if (app.menu.currentBGFrame  != goto * 15 ) {
                         -- app.menu.currentBGFrame;
                         app.bg.attr('src', app.images[app.menu.currentBGFrame]);
                         app.menu.rAF = window.requestAnimationFrame? requestAnimationFrame(animLoop): webkitRequestAnimationFrame(animLoop); // polyfill para funcionar no chrome e no ipad(que requer o vendor prefix antes da versão 7)
@@ -298,7 +306,6 @@
             }
             
             app.menu.previousItem = function() { 
-                app.audio.playSound(app.audio.assets.tap, app.audio.fxNode, false);
                 //Trazer item anterior da esquerda
                 if (app.menu.currentTitle != 0 ) {
                     app.menu.previousBG(app.menu.currentTitle - 1);             
